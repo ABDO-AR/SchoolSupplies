@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Light Styles -->
+    <style name="defAppLightBackground">
+        <!-- Light Background -->
+        <item name="android:background">@color/color_primary_background_light</item>
+        <item name="android:backgroundTint">@color/color_primary_background_light</item>
+    </style>
+
+    <style name="defAppLightForeground">
+        <!-- Light Background -->
+        <item name="android:background">@color/color_primary_foreground_light</item>
+        <item name="android:backgroundTint">@color/color_primary_foreground_light</item>
+    </style>
+
+    <!-- Dark Styles -->
+    <style name="defAppDarkBackground">
+        <!-- Light Background -->
+        <item name="android:background">@color/color_primary_background_dark</item>
+        <item name="android:backgroundTint">@color/color_primary_background_dark</item>
+    </style>
+
+    <style name="defAppDarkForeground">
+        <!-- Light Background -->
+        <item name="android:background">@color/color_primary_foreground_dark</item>
+        <item name="android:backgroundTint">@color/color_primary_foreground_dark</item>
+    </style>
+
+    <!-- Designs -->
+    <style name="DefaultCardOverlay" parent="@style/Widget.MaterialComponents.CardView">
+        <!-- Custom ShapeOverlay -->
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_DefaultCardOverlay</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_DefaultCardOverlay" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+</resources>

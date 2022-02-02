@@ -1,0 +1,26 @@
+<resources>
+    <!-- Names -->
+    <string name="app_name">School Supplies</string>
+    <!-- Titles -->
+    <string name="home_menu_title">Home</string>
+    <!-- Hints -->
+    <string name="email_hint">email</string>
+    <string name="password_hint">password</string>
+    <string name="name_hint">name</string>
+    <string name="current_year_hint">current year</string>
+    <string name="phone_number_hint">phone number</string>
+    <string name="school_name_hint">school name</string>
+    <string name="address_hint">address</string>
+    <!-- Messages -->
+    <string name="welcome_msg">Welcome</string>
+    <string name="login_msg">Login</string>
+    <string name="create_an_account_msg">Create an account, Sign Up</string>
+    <string name="i_have_an_account_msg">I have An Account, Login</string>
+    <string name="or_msg">or</string>
+    <string name="sign_up_msg">Sign up</string>
+    <!-- Descriptions -->
+    <string name="app_icon_des">AppIcon imageView des</string>
+    <string name="splash_icon_des">Splash icon des</string>
+    <string name="messanger_icon_des">Messenger icon des</string>
+    <string name="adding_floating_action_button_des">Adding floating action button des</string>
+</resources>

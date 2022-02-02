@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AR primary light colors -->
+    <color name="color_primary_foreground_light">#007cc0</color>
+    <color name="color_primary_background_light">#FFFFFF</color>
+
+    <!-- AR primary dark colors -->
+    <color name="color_primary_foreground_dark">#007cc0</color>
+    <color name="color_primary_background_dark">#FFFFFF</color>
+
+    <!-- AR card light colors -->
+    <color name="color_card_foreground_light">#80728893</color>
+    <color name="color_card_background_light">#80CFD8DD</color>
+
+    <!-- AR card dark colors -->
+    <color name="color_card_foreground_dark">#802A2B31</color>
+    <color name="color_card_background_dark">#8019181B</color>
+
+    <!-- AR addition blue colors -->
+    <color name="ar_blue_1">#ACCBFF</color>
+    <color name="ar_blue_2">#92BBFF</color>
+    <color name="ar_blue_3">#78AAFF</color>
+    <color name="ar_blue_4">#649EFF</color>
+    <color name="ar_blue_5">#4188FF</color>
+
+    <!-- AR addition colors -->
+    <color name="ar_addition_green_color">#3ABCA3</color>
+    <color name="ar_addition_limon_color">#6ED5A1</color>
+    <color name="ar_addition_orange_color">#FEC166</color>
+    <color name="ar_addition_brown_color">#935B44</color>
+    <color name="ar_addition_green_dark_color">#103A3F</color>
+
+    <!-- Def android studio colors -->
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

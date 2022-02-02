@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Background attribute -->
+    <attr name="defAppBackground" format="reference"/>
+    <!-- Foreground attribute -->
+    <attr name="defAppForeground" format="reference"/>
+
+</resources>
