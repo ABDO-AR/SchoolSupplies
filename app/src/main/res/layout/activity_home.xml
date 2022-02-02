@@ -7,102 +7,60 @@
     android:layout_height="match_parent"
     tools:context=".ui.activitys.home.HomeActivity">
 
-    <ImageButton
-        android:id="@+id/messanger_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/messanger_icon_des"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_messanger" />
-
-    <ImageView
-        android:id="@+id/app_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/app_icon_des"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_foreground_splash_icon"
-        app:tint="@color/color_primary_foreground_dark" />
-
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:paddingTop="5dp"
-        app:tabIndicatorHeight="2dp"
-        app:tabIndicatorColor="@color/ar_blue_5"
-        app:tabSelectedTextColor="@color/black_1"
-        app:tabTextColor="@color/gray"
-        app:tabPaddingEnd="2dp"
-        app:tabPaddingStart="2dp"
-        app:tabIconTint="@color/white"
-        app:tabTextAppearance="@style/MyCustomTextAppearance"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_image_view"
-        />
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_500sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-
-        />
-    <FrameLayout
-        android:id="@+id/fragment_container_view_tag"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/home_host_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@android:color/transparent"
-        android:padding="32dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph_home" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/nav_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/adding_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/white"
-            android:clickable="true"
-            android:contentDescription="@string/adding_floating_action_button_des"
-            android:focusable="true"
-            app:borderWidth="0dp"
-            app:srcCompat="@drawable/ic_add" />
 
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            >
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:clipChildren="false"
+            android:orientation="vertical">
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:background="@drawable/nav_background"
+                android:clipChildren="false"
                 app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_nav_menu"
+                app:menu="@menu/bottom_nav_menu">
 
-                />
-        </FrameLayout>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/adding_button"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/white"
+                    android:clickable="true"
+                    android:contentDescription="@string/adding_floating_action_button_des"
+                    android:focusable="true"
+                    app:borderWidth="0dp"
+                    app:srcCompat="@drawable/ic_add" />
 
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+        </LinearLayout>
 
-
-    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

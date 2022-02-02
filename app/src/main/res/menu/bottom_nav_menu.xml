@@ -7,8 +7,8 @@
         android:icon="@drawable/ic_home"/>
 
     <item
-        android:id="@+id/check_menu_item"
-        android:title="Check"
+        android:id="@+id/orders_menu_item"
+        android:title="@string/orders_menu_title"
         android:icon="@drawable/ic_baseline_check_box_24"/>
 
 </menu>

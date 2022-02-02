@@ -1,7 +1,10 @@
 <resources>
     <!-- Names -->
     <string name="app_name">School Supplies</string>
+    <string name="general_tools_tab_name">General Tool</string>
+    <string name="special_tools_tab_name">Special Tools</string>
     <!-- Titles -->
+    <string name="orders_menu_title">Orders</string>
     <string name="home_menu_title">Home</string>
     <!-- Hints -->
     <string name="email_hint">email</string>
@@ -17,6 +20,12 @@
     <string name="create_an_account_msg">Create an account, Sign Up</string>
     <string name="i_have_an_account_msg">I have An Account, Login</string>
     <string name="sign_up_msg">Sign up</string>
+    <string name="request_msg">Request</string>
+    <string name="details_msg">Details</string>
+    <string name="request_donate_msg">This user made a request for this widget that you offered to donate</string>
+    <string name="would_you_like_to_msg">Would you like to</string>
+    <string name="accept_msg">Accept</string>
+    <string name="cancel_msg">Cancel</string>
     <string name="or_msg">or</string>
     <string name="add_tool">Add Tool</string>
     <string name="tool_name">Tool Name</string>
@@ -28,11 +37,14 @@
     <string name="search">Search</string>
     <string name="message">Message</string>
     <string name="order">Orders</string>
-
-
+    <!-- Demo -->
+    <string name="description_demo">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
+    <string name="name_demo">ABDO-AR</string>
     <!-- Descriptions -->
     <string name="app_icon_des">AppIcon imageView des</string>
     <string name="splash_icon_des">Splash icon des</string>
     <string name="messanger_icon_des">Messenger icon des</string>
     <string name="adding_floating_action_button_des">Adding floating action button des</string>
+    <string name="home_tabs_des">Home tabs des</string>
+    <string name="tool_image_view_des">Tool image view des</string>
 </resources>
