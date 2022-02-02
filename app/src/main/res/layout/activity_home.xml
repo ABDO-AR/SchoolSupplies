@@ -32,7 +32,36 @@
         app:srcCompat="@drawable/ic_foreground_splash_icon"
         app:tint="@color/color_primary_foreground_dark" />
 
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingTop="5dp"
+        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorColor="@color/ar_blue_5"
+        app:tabSelectedTextColor="@color/black_1"
+        app:tabTextColor="@color/gray"
+        app:tabPaddingEnd="2dp"
+        app:tabPaddingStart="2dp"
+        app:tabIconTint="@color/white"
+        app:tabTextAppearance="@style/MyCustomTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_image_view"
+        />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_500sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+
+        />
     <FrameLayout
+        android:id="@+id/fragment_container_view_tag"
         android:layout_width="0dp"
         android:layout_height="180dp"
         android:layout_marginStart="32dp"
@@ -42,15 +71,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/nav_background"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_nav_menu" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/adding_button"
             android:layout_width="wrap_content"
@@ -62,6 +82,26 @@
             android:focusable="true"
             app:borderWidth="0dp"
             app:srcCompat="@drawable/ic_add" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            >
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/nav_background"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_nav_menu"
+
+                />
+        </FrameLayout>
+
+
+
 
     </FrameLayout>
 

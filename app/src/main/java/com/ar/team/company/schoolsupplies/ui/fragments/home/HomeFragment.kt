@@ -1,6 +1,5 @@
-package com.ar.team.company.schoolsupplies.ui.fragments.sign.`in`
+package com.ar.team.company.schoolsupplies.ui.fragments.home
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,15 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.ar.team.company.schoolsupplies.R
-import com.ar.team.company.schoolsupplies.databinding.FragmentSignInBinding
-import com.ar.team.company.schoolsupplies.ui.activitys.home.HomeActivity
+import com.ar.team.company.schoolsupplies.databinding.FragmentHomeBinding
+import com.ar.team.company.schoolsupplies.databinding.FragmentWelcomeBinding
 import com.ar.team.company.schoolsupplies.ui.activitys.sign.SignViewModel
 
-class SignInFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     // Fields:
-    private var _binding: FragmentSignInBinding? = null
-    private val binding: FragmentSignInBinding get() = _binding!!
+    private var _binding: FragmentHomeBinding? = null
+    private val binding: FragmentHomeBinding get() = _binding!!
 
     // ViewModel:
     private val model: SignViewModel by lazy { ViewModelProvider(this)[SignViewModel::class.java] }
@@ -29,13 +28,13 @@ class SignInFragment : Fragment() {
     // Companion:
     companion object {
         // Tags:
-        const val TAG: String = "SignInFragment"
+        const val TAG: String = "HomeFragment"
     }
 
     // Method(OnCreateView):
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Initializing:
-        _binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         // Returning:
         return binding.root
     }
@@ -45,10 +44,7 @@ class SignInFragment : Fragment() {
         // Super:
         super.onViewCreated(view, savedInstanceState)
         // Initializing:
-        binding.signUpTextView.setOnClickListener { controller.navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()) }
-        binding.signUpButton.setOnClickListener {
-            startActivity(Intent(requireContext(),HomeActivity::class.java))
-        }
+
     }
 
     // Method(OnDestroyView):
