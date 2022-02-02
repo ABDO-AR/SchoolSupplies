@@ -16,8 +16,20 @@
     <string name="login_msg">Login</string>
     <string name="create_an_account_msg">Create an account, Sign Up</string>
     <string name="i_have_an_account_msg">I have An Account, Login</string>
-    <string name="or_msg">or</string>
     <string name="sign_up_msg">Sign up</string>
+    <string name="or_msg">or</string>
+    <string name="add_tool">Add Tool</string>
+    <string name="tool_name">Tool Name</string>
+    <string name="details_tool">Details</string>
+    <string name="type_tool">Tool Type</string>
+    <string name="save">Save</string>
+    <string name="upload_photo_tool">Upload photo</string>
+    <string name="upload_img_tool">Download From Your Device</string>
+    <string name="search">Search</string>
+    <string name="message">Message</string>
+    <string name="order">Orders</string>
+
+
     <!-- Descriptions -->
     <string name="app_icon_des">AppIcon imageView des</string>
     <string name="splash_icon_des">Splash icon des</string>
