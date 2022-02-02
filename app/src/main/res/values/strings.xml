@@ -37,6 +37,20 @@
     <string name="search">Search</string>
     <string name="message">Message</string>
     <string name="order">Orders</string>
+    <string name="error_create_user">Something went wrong, unable to create user.</string>
+
+    <string name="email_is_empty">Email cannot be empty</string>
+    <string name="user_is_empty">User Name cannot be empty</string>
+    <string name="school_is_empty">School Name cannot be empty</string>
+    <string name="phone_is_empty">Phone Number cannot be empty</string>
+    <string name="address_is_empty">Address cannot be empty</string>
+    <string name="year_is_empty">currentYear cannot be empty</string>
+    <string name="password_is_empty">Password cannot be less than 6 characters </string>
+
+    <string name="enter_email">UserName</string>
+    <string name="enter_password">PASSWORD</string>
+    <string name="enter_password_again">PASSWORD AGAIN</string>
+    <string name="password_confirm">The password confirmation is incorrect</string>
     <!-- Demo -->
     <string name="description_demo">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
     <string name="name_demo">ABDO-AR</string>

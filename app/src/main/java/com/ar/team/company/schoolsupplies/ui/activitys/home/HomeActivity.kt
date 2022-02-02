@@ -11,6 +11,7 @@ import com.ar.team.company.schoolsupplies.databinding.ActivityHomeBinding
 import com.ar.team.company.schoolsupplies.control.adapter.PagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
 
