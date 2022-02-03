@@ -111,21 +111,35 @@
                     android:textSize="@dimen/_18ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/sign_up_button"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:backgroundTint="@color/color_primary_foreground_dark"
-                android:text="@string/login_msg"
-                android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_22ssp"
                 app:layout_constraintBottom_toTopOf="@+id/sign_up_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+                <Button
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/color_primary_foreground_dark"
+                    android:text="@string/login_msg"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_22ssp" />
+
+                <ProgressBar
+                    android:id="@+id/sign_in_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/color_primary_foreground_dark"
+                    android:visibility="gone" />
+
+            </FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,14 +2,17 @@ package com.ar.team.company.schoolsupplies.ui.activitys.sign
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ar.team.company.schoolsupplies.databinding.ActivitySignBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignActivity : AppCompatActivity() {
 
     // Fields:
     private val binding: ActivitySignBinding by lazy { ActivitySignBinding.inflate(layoutInflater) }
-    private val model: SignViewModel by lazy { ViewModelProvider(this)[SignViewModel::class.java] }
+    private val model: SignViewModel by viewModels()
 
     // Companion:
     companion object {

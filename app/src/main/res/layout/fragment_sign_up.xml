@@ -201,21 +201,36 @@
                     android:textSize="@dimen/_16ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/sign_up_button"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:backgroundTint="@color/color_primary_foreground_dark"
-                android:text="@string/sign_up_msg"
-                android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_22ssp"
                 app:layout_constraintBottom_toTopOf="@+id/sign_in_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
+
+                <Button
+                    android:id="@+id/sign_up_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/color_primary_foreground_dark"
+                    android:text="@string/sign_up_msg"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_22ssp"
+                    android:visibility="visible" />
+
+                <ProgressBar
+                    android:id="@+id/sign_up_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/color_primary_foreground_dark"
+                    android:visibility="gone" />
+
+            </FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

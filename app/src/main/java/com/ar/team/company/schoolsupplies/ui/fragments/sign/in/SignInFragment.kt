@@ -6,32 +6,35 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.databinding.FragmentSignInBinding
-import com.ar.team.company.schoolsupplies.models.User
+import com.ar.team.company.schoolsupplies.model.intentions.SignIntentions
+import com.ar.team.company.schoolsupplies.model.states.SignViewStates
 import com.ar.team.company.schoolsupplies.ui.activitys.home.HomeActivity
 import com.ar.team.company.schoolsupplies.ui.activitys.sign.SignViewModel
-import com.ar.team.company.schoolsupplies.ui.fragments.tools.Helper
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SignInFragment : Fragment() {
 
     // Fields:
     private var _binding: FragmentSignInBinding? = null
     private val binding: FragmentSignInBinding get() = _binding!!
-    private var auth: FirebaseAuth? = null
+
     // ViewModel:
-    private val model: SignViewModel by lazy { ViewModelProvider(this)[SignViewModel::class.java] }
+    private val model: SignViewModel by viewModels()
+
+    // FirebaseAuth:
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     // NavController:
     private val controller: NavController by lazy { Navigation.findNavController(requireActivity(), R.id.host_container) }
@@ -47,9 +50,6 @@ class SignInFragment : Fragment() {
         // Initializing:
         _binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
         // Returning:
-
-        // init Firebase Auth
-        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -59,9 +59,43 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Initializing:
         binding.signUpTextView.setOnClickListener { controller.navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()) }
-        binding.signUpButton.setOnClickListener {
-            signInWithEmail( binding.emailEditText.text.toString(),binding.passwordEditText.text.toString())
+        binding.signInButton.setOnClickListener { submit(binding.emailEditText.text.toString(), binding.passwordEditText.text.toString()) }
+    }
+
+    // Method(Submit):
+    private fun submit(email: String, password: String) {
+        // Checking:
+        when {
+            // Checking:
+            TextUtils.isEmpty(email) -> Snackbar.make(binding.root, R.string.email_is_empty, Snackbar.LENGTH_SHORT).show()
+            password.length < 5 -> Snackbar.make(binding.root, R.string.password_is_empty, Snackbar.LENGTH_SHORT).show()
+            // Coroutines:
+            else -> lifecycleScope.launchWhenCreated {
+                // Submitting:
+                model.signChannel.send(SignIntentions.SignIn(email, password))
+                // Enabling(Progress):
+                progressToggle(true)
+                // Collecting:
+                model.state.collect {
+                    // Checking:
+                    when (it) {
+                        // Singing:
+                        is SignViewStates.Success -> progressToggle(false).also { homeActivity() }
+                        is SignViewStates.Failure -> progressToggle(false).also { if (auth.currentUser !== null) homeActivity() else Snackbar.make(binding.root, R.string.error_create_user, Snackbar.LENGTH_LONG).show() }
+                    }
+                }
+            }
         }
+    }
+
+    // Method(HomeActivity):
+    private fun homeActivity() = startActivity(Intent(requireActivity(), HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+
+    // Method(ProgressToggle):
+    private fun progressToggle(visible: Boolean) {
+        // Toggling:
+        binding.signInButton.visibility = if (visible) View.GONE else View.VISIBLE
+        binding.signInProgress.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     // Method(OnDestroyView):
@@ -71,42 +105,4 @@ class SignInFragment : Fragment() {
         // Destroying:
         _binding = null
     }
-    private fun signInWithEmail(email: String, password: String) {
-        when {
-            TextUtils.isEmpty(email) -> {
-                Toast.makeText(requireContext(), R.string.email_is_empty, Toast.LENGTH_SHORT).show()
-            }
-            password.length < 5 -> {
-                Toast.makeText(requireContext(), R.string.password_is_empty, Toast.LENGTH_SHORT)
-                    .show()
-            }
-            else -> {
-
-                auth!!.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(
-                        requireActivity(),
-                        OnCompleteListener { task: Task<AuthResult> ->
-                            if (task.isSuccessful) {
-                                val id = task.result!!.user!!.uid
-                                startActivity(Intent(requireActivity(), HomeActivity::class.java).
-                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
-
-                            } else {
-
-                                    Toast.makeText(
-                                    requireActivity(),
-                                    "error :" + task.exception!!.message,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-
-                        })
-                    .addOnFailureListener(OnFailureListener { e: Exception? -> })
-            }
-        }
-    }
-
-
-
-
 }
