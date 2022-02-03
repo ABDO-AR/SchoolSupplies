@@ -61,4 +61,12 @@
     <string name="adding_floating_action_button_des">Adding floating action button des</string>
     <string name="home_tabs_des">Home tabs des</string>
     <string name="tool_image_view_des">Tool image view des</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tool_image_msg">You have to upload tool photo</string>
+    <string name="tool_cannot_empty_msg">Tool name cannot be empty</string>
+    <string name="you_have_detail_tool_msg">You have to detail your tool</string>
+    <string name="specify_type_msg">You need to specify a type for your tool</string>
+    <string name="something_wrong_in_upload_msg">Something wrong in uploading tool</string>
+    <string name="failure_msg">Failure to get data</string>
 </resources>

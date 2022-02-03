@@ -3,6 +3,7 @@ package com.ar.team.company.schoolsupplies.ui.fragments.sign.`in`
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,7 +82,7 @@ class SignInFragment : Fragment() {
                     when (it) {
                         // Singing:
                         is SignViewStates.Success -> progressToggle(false).also { homeActivity() }
-                        is SignViewStates.Failure -> progressToggle(false).also { if (auth.currentUser !== null) homeActivity() else Snackbar.make(binding.root, R.string.error_create_user, Snackbar.LENGTH_LONG).show() }
+                        is SignViewStates.Failure -> progressToggle(false).also { if (auth.currentUser !== null) homeActivity() else Log.d(TAG, "submit: ${getString(R.string.error_create_user)}") }
                     }
                 }
             }

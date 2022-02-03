@@ -9,11 +9,13 @@ object DatabaseManager {
 
     // Constance:
     const val USERS_DB_REFERENCE: String = "Users"
+    const val TOOLS_DB_REFERENCE: String = "Tools"
 
     // Database:
     val db: FirebaseDatabase = FirebaseDatabase.getInstance()
     val dbReference: DatabaseReference = db.reference
     val usersDBReference: DatabaseReference = dbReference.child(USERS_DB_REFERENCE)
+    val toolsDBReference: DatabaseReference = dbReference.child(TOOLS_DB_REFERENCE)
 
     // Storage:
     val storage: FirebaseStorage = FirebaseStorage.getInstance()

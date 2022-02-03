@@ -2,7 +2,7 @@ package com.ar.team.company.schoolsupplies.ui.activitys.sign
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ar.team.company.schoolsupplies.control.repository.SignRepository
+import com.ar.team.company.schoolsupplies.control.repository.MainRepository
 import com.ar.team.company.schoolsupplies.model.intentions.SignIntentions
 import com.ar.team.company.schoolsupplies.model.states.SignViewStates
 import com.google.android.gms.tasks.Task
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignViewModel @Inject constructor(private val repository: SignRepository) : ViewModel() {
+class SignViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
 
     // Channel:
     val signChannel: Channel<SignIntentions> = Channel(Channel.UNLIMITED)
@@ -47,13 +47,17 @@ class SignViewModel @Inject constructor(private val repository: SignRepository) 
             // Checking:
             when (intention) {
                 // Reducing
-                is SignIntentions.SignIn -> _state.emit(if (authCheck(repository.signIn(intention))) SignViewStates.Success else SignViewStates.Failure)
-                is SignIntentions.SignUp -> _state.emit(if (voidCheck(repository.signUp(intention))) SignViewStates.Success else SignViewStates.Failure)
+                is SignIntentions.SignIn -> repository.signIn(intention) {
+                    viewModelScope.launch {
+                        _state.emit(if (it) SignViewStates.Success else SignViewStates.Failure)
+                    }
+                }
+                is SignIntentions.SignUp -> repository.signUp(intention) {
+                    viewModelScope.launch {
+                        _state.emit(if (it) SignViewStates.Success else SignViewStates.Failure)
+                    }
+                }
             }
         }
     }
-
-    // Method(TaskCheck):
-    private fun authCheck(task: Task<AuthResult>): Boolean = task.isComplete && task.isSuccessful
-    private fun voidCheck(task: Task<Void>?): Boolean = task!!.isComplete && task.isSuccessful
 }

@@ -1,15 +1,22 @@
 package com.ar.team.company.schoolsupplies.ui.fragments.tools.general
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.ar.team.company.schoolsupplies.R
+import com.ar.team.company.schoolsupplies.control.adapter.GeneralToolsAdapter
 import com.ar.team.company.schoolsupplies.databinding.FragmentGeneralToolsBinding
+import com.ar.team.company.schoolsupplies.model.intentions.HomeIntentions
+import com.ar.team.company.schoolsupplies.model.states.HomeViewStates
 import com.ar.team.company.schoolsupplies.ui.activitys.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GeneralToolsFragment : Fragment() {
 
     // Fields:
@@ -17,7 +24,10 @@ class GeneralToolsFragment : Fragment() {
     private val binding: FragmentGeneralToolsBinding get() = _binding!!
 
     // ViewModel:
-    private val model: HomeViewModel by lazy { ViewModelProvider(this)[HomeViewModel::class.java] }
+    private val model: HomeViewModel by viewModels()
+
+    // Adapter:
+    private lateinit var adapter: GeneralToolsAdapter
 
     // Companion:
     companion object {
@@ -38,6 +48,36 @@ class GeneralToolsFragment : Fragment() {
         // Super:
         super.onViewCreated(view, savedInstanceState)
         // Initializing:
+        rendering()
+    }
+
+    private fun rendering() {
+        // Coroutines:
+        lifecycleScope.launchWhenCreated {
+            // Sending:
+            model.homeChannel.send(HomeIntentions.GetTools)
+            // Collecting:
+            model.state.collect {
+                // Checking:
+                when (it) {
+                    // Getting:
+                    is HomeViewStates.Tools -> {
+                        // Initializing:
+                        adapter = GeneralToolsAdapter(requireContext(), it.tools).also { progressToggle(false) }
+                        // Setting:
+                        binding.generalToolsRecyclerView.adapter = adapter
+                    }
+                    is HomeViewStates.Failure -> progressToggle(false).also { Log.d(TAG, "rendering: ${getString(R.string.failure_msg)}") }
+                }
+            }
+        }
+    }
+
+    // Method(ProgressToggle):
+    private fun progressToggle(visible: Boolean) {
+        // Toggling:
+        binding.generalToolsRecyclerView.visibility = if (visible) View.GONE else View.VISIBLE
+        binding.generalToolsProgress.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     // Method(OnDestroyView):

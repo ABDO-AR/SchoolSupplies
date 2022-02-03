@@ -1,7 +1,7 @@
 package com.ar.team.company.schoolsupplies.control.dependencies
 
 import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
-import com.ar.team.company.schoolsupplies.control.repository.SignRepository
+import com.ar.team.company.schoolsupplies.control.repository.MainRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -23,5 +23,5 @@ class AppModule {
 
     @Provides
     @Singleton // Method(ProvideSignRepository):
-    fun provideSignRepository(auth: FirebaseAuth, manager: DatabaseManager): SignRepository = SignRepository(auth, manager)
+    fun provideSignRepository(auth: FirebaseAuth, manager: DatabaseManager): MainRepository = MainRepository(auth, manager)
 }
