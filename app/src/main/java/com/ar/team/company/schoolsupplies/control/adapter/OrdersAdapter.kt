@@ -1,7 +1,6 @@
 package com.ar.team.company.schoolsupplies.control.adapter
 
 import android.content.Context
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,8 +122,6 @@ class OrdersAdapter(private val context: Context, private val tools: ArrayList<T
 
                 notifyDataSetChanged()
             }
-
-
         }
     }
 

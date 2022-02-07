@@ -74,4 +74,6 @@
     <string name="specify_type_msg">You need to specify a type for your tool</string>
     <string name="something_wrong_in_upload_msg">Something wrong in uploading tool</string>
     <string name="failure_msg">Failure to get data</string>
+    <string name="view_by_year_msg">View By Year</string>
+    <string name="orderd_msg">ordered</string>
 </resources>

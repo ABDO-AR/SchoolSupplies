@@ -34,16 +34,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView3"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_margin="8dp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:elevation="9dp"
             app:cardCornerRadius="888dp"
             app:cardElevation="9dp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

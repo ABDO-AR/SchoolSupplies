@@ -10,10 +10,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.control.adapter.GeneralToolsAdapter
+import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.databinding.FragmentGeneralToolsBinding
 import com.ar.team.company.schoolsupplies.model.intentions.HomeIntentions
 import com.ar.team.company.schoolsupplies.model.states.HomeViewStates
 import com.ar.team.company.schoolsupplies.ui.activities.home.HomeViewModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,13 +53,23 @@ class GeneralToolsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Initializing:
         rendering()
+        // Developing:
+        DatabaseManager.toolsDBReference.addValueEventListener(object : ValueEventListener {
+            // Method(OnDataChange):
+            override fun onDataChange(snapshot: DataSnapshot) = rendering()
+
+            // Method(OnDataCancelled):
+            override fun onCancelled(error: DatabaseError) = rendering()
+        })
     }
 
     private fun rendering() {
+        // Loading:
+        progressToggle(true)
         // Coroutines:
         lifecycleScope.launchWhenCreated {
             // Sending:
-            model.homeChannel.send(HomeIntentions.GetTools)
+            model.homeChannel.send(HomeIntentions.GetTools(getString(R.string.general_tools_tab_name)))
             // Collecting:
             model.state.collect {
                 // Checking:
@@ -64,10 +78,12 @@ class GeneralToolsFragment : Fragment() {
                     is HomeViewStates.Tools -> {
                         // Initializing:
                         adapter = GeneralToolsAdapter(requireContext(), it.tools).also { progressToggle(false) }
+                        // Checking:
+                        if (it.tools.isEmpty()) progressToggle(true)
                         // Setting:
                         binding.generalToolsRecyclerView.adapter = adapter
                     }
-                    is HomeViewStates.Failure -> progressToggle(false).also { Log.d(TAG, "rendering: ${getString(R.string.failure_msg)}") }
+                    is HomeViewStates.Failure -> progressToggle(true).also { Log.d(TAG, "rendering: ${getString(R.string.failure_msg)}") }
                 }
             }
         }

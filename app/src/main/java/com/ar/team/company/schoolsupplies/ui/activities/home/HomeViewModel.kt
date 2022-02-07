@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ar.team.company.schoolsupplies.control.repository.MainRepository
 import com.ar.team.company.schoolsupplies.model.intentions.HomeIntentions
+import com.ar.team.company.schoolsupplies.model.models.Tool
 import com.ar.team.company.schoolsupplies.model.states.HomeViewStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -46,9 +47,9 @@ class HomeViewModel @Inject constructor(private val repository: MainRepository) 
             when (intention) {
                 // Reducing
                 is HomeIntentions.GetTools -> {
-                    repository.getTools {
+                    repository.getTools { tools ->
                         viewModelScope.launch {
-                            _state.emit(if (it.isNotEmpty()) HomeViewStates.Tools(it) else HomeViewStates.Failure)
+                            _state.emit(if (tools.isNotEmpty()) HomeViewStates.Tools(tools.filter { it.type == intention.filtrationType } as ArrayList<Tool>) else HomeViewStates.Failure)
                         }
                     }
                 }

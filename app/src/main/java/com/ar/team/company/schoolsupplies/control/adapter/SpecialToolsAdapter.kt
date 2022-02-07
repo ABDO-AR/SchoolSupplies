@@ -13,19 +13,19 @@ import com.ar.team.company.schoolsupplies.model.models.Tool
 import com.ar.team.company.schoolsupplies.model.models.User
 import com.google.firebase.auth.FirebaseAuth
 
-class GeneralToolsAdapter(private val context: Context, private val tools: ArrayList<Tool>) : RecyclerView.Adapter<GeneralToolsAdapter.GeneralToolsViewHolder>() {
+class SpecialToolsAdapter(private val context: Context, private val tools: ArrayList<Tool>) : RecyclerView.Adapter<SpecialToolsAdapter.SpecialToolsViewHolder>() {
 
     // Adapter:
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GeneralToolsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpecialToolsViewHolder {
         // Initializing:
         val inflater = LayoutInflater.from(context)
         val binding = ToolItemViewBinding.inflate(inflater, parent, false)
         // Returning:
-        return GeneralToolsViewHolder(binding)
+        return SpecialToolsViewHolder(binding)
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: GeneralToolsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SpecialToolsViewHolder, position: Int) {
         // Initializing:
         val tool = tools[position]
         // Prepare:
@@ -74,5 +74,5 @@ class GeneralToolsAdapter(private val context: Context, private val tools: Array
     override fun getItemCount(): Int = tools.size
 
     // Holder:
-    inner class GeneralToolsViewHolder(val binding: ToolItemViewBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class SpecialToolsViewHolder(val binding: ToolItemViewBinding) : RecyclerView.ViewHolder(binding.root)
 }

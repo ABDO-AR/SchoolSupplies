@@ -33,7 +33,12 @@ class AddToolActivity : AppCompatActivity() {
     // Fields:
     private val binding: ActivityAddToolBinding by lazy { ActivityAddToolBinding.inflate(layoutInflater) }
     private val model: AddViewModel by viewModels()
-    private var spinnerText: String ="General Tool"
+
+    // Spinner:
+    private var spinnerText: String = "General Tool"
+
+    // SpinnerAdapter:
+    private lateinit var adapter: ArrayAdapter<CharSequence>
 
     // ImagePicker:
     private lateinit var imagePicker: ActivityResultLauncher<String>
@@ -51,35 +56,28 @@ class AddToolActivity : AppCompatActivity() {
         setContentView(binding.root).also { supportActionBar?.hide() }
         // Initializing:
         imagePicker = registerForActivityResult(ActivityResultContracts.GetContent(), ::onPick)
+        adapter = ArrayAdapter.createFromResource(this, R.array.type_tool, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
         // Developing:
         binding.backButton.setOnClickListener { onBackPressed() }
         binding.toolUploadTextView.setOnClickListener { imagePicker.launch("image/*") }
-
-        val adapter = ArrayAdapter.createFromResource(
-            this,
-            R.array.type_tool, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
-        )
         binding.toolTypeSpinner.adapter = adapter
-
         binding.saveButton.setOnClickListener {
             // Submitting:
             submit(binding.toolNameEditText.text.toString(), binding.detailsEditText.text.toString(), spinnerText)
         }
+        binding.toolTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            // Method(OnItemSelected):
+            override fun onItemSelected(arg0: AdapterView<*>, arg1: View?, arg2: Int, arg3: Long) {
+                // Updating:
+                spinnerText = binding.toolTypeSpinner.selectedItem.toString()
+            }
 
-
-        binding.toolTypeSpinner
-            .setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(arg0: AdapterView<*>, arg1: View?, arg2: Int, arg3: Long) {
-                    spinnerText = binding.toolTypeSpinner.getSelectedItem() as String
-
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    TODO("Not yet implemented")
-                }
-
-
-            })
+            // Method(OnNothingSelected):
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                // Debugging:
+                Log.d(TAG, "OnNothingSelected: C")
+            }
+        }
     }
 
     // Method(Submit):
@@ -94,7 +92,7 @@ class AddToolActivity : AppCompatActivity() {
             // Coroutines:
             else -> lifecycleScope.launchWhenCreated {
                 // Submitting:
-                model.toolChannel.send(AddToolIntentions.Upload(Tool(DatabaseManager.toolsDBReference.push().key.toString(),name, details, type, encodedImage!!, FirebaseAuth.getInstance().currentUser!!.uid,"")))
+                model.toolChannel.send(AddToolIntentions.Upload(Tool(DatabaseManager.toolsDBReference.push().key.toString(), name, details, type, encodedImage!!, FirebaseAuth.getInstance().currentUser!!.uid, "")))
                 // Enabling(Progress):
                 progressToggle(true)
                 // Collecting:

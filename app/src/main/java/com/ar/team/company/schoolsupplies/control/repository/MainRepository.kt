@@ -1,17 +1,13 @@
 package com.ar.team.company.schoolsupplies.control.repository
 
-import android.util.Log
 import com.ar.team.company.schoolsupplies.control.interfaces.MainRepo
 import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.model.intentions.AddToolIntentions
 import com.ar.team.company.schoolsupplies.model.intentions.SignIntentions
 import com.ar.team.company.schoolsupplies.model.models.Tool
 import com.ar.team.company.schoolsupplies.model.models.User
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
-import kotlinx.coroutines.*
 
 class MainRepository(private val auth: FirebaseAuth, private val manager: DatabaseManager) : MainRepo {
 
@@ -37,7 +33,6 @@ class MainRepository(private val auth: FirebaseAuth, private val manager: Databa
     // Method(UploadTool):
     override suspend fun uploadTool(intention: AddToolIntentions.Upload, tool: (success: Boolean) -> Unit) {
         // Uploading:
-
         manager.toolsDBReference.child(intention.tool.toolID).setValue(intention.tool).addOnSuccessListener { tool(true) }
     }
 
