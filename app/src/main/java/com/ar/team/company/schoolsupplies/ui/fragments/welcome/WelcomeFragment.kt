@@ -12,6 +12,7 @@ import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.databinding.FragmentWelcomeBinding
 import com.ar.team.company.schoolsupplies.ui.activities.sign.SignViewModel
 
+@Suppress("unused")
 class WelcomeFragment : Fragment() {
 
     // Fields:

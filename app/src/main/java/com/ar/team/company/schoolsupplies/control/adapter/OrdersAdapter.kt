@@ -1,8 +1,8 @@
 package com.ar.team.company.schoolsupplies.control.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
@@ -27,99 +27,73 @@ class OrdersAdapter(private val context: Context, private val tools: ArrayList<T
         return GeneralToolsViewHolder(binding)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: GeneralToolsViewHolder, position: Int) {
         // Initializing:
         val tool = tools[position]
-
         // Prepare:
         holder.binding.apply {
-
-
-
             // Getting:
-            DatabaseManager.usersDBReference.child(tool.toolRequestID).get().addOnSuccessListener {
+            DatabaseManager.usersDBReference.child(tool.toolRequestID).get().addOnSuccessListener { it ->
                 // Initializing:
                 val user = it.getValue(User::class.java)
-                // Setting:
+                // Checking:
                 if (user!!.userImage != User.NO_USER_IMAGE) userImageView.setImageBitmap(user.decode())
+                // Setting:
                 userNameTextView.text = user.userName
-
+                // Developing:
                 messageButton.setOnClickListener {
-                    //setup AlertDialog
+                    // Initializing:
                     val builder = MaterialAlertDialogBuilder(context)
-                    //set message in alertDialog
-                    builder.setTitle("send message to "+user.userName)
-                    //set when click Cancel
-                    builder.setNegativeButton("Cancel", null)
-                    // init Edit text
                     val name = EditText(context)
-                    name.hint = "set your message"
-
-                    // build edit Text in alert
-                    // build edit Text in alert
+                    // Setting:
+                    builder.setTitle(context.getString(R.string.send_message_to_msg) + user.userName)
+                    builder.setNegativeButton(context.getString(R.string.cancel_msg), null)
+                    name.hint = context.getString(R.string.set_your_msg)
                     builder.setView(name)
-                    // when click update
-                    // when click update
-                    builder.setPositiveButton("Send") { dialog, which ->
+                    // Developing:
+                    builder.setPositiveButton("Send") { _, _ ->
+                        // Initializing:
                         val message = name.text.toString()
-                        //   product.setNameProduct(newName);
-                        // Helper.productsList.get(position).setNameProduct(newName);
-                        if (message.isEmpty())
-                            Toast.makeText(
-                            context,
-                            "it cannot be sent empty !!, please write message",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        else
-                        {
+                        // Checking:
+                        if (message.isEmpty()) Toast.makeText(context, context.getString(R.string.cannot_sent_empty_msg), Toast.LENGTH_SHORT).show()
+                        else {
                             // Getting:
                             DatabaseManager.usersDBReference.child(tool.ownerID).get().addOnSuccessListener {
                                 // Initializing:
                                 val userMe = it.getValue(User::class.java)
-
-
-                            var id = FirebaseAuth.getInstance().currentUser!!.uid +" -- "+user.id
-                            var message = Message(id, message  ,FirebaseAuth.getInstance().currentUser!!.uid ,user.id
-                                    ,
-                                userMe!!.userName ,user.userName,user.userImage )
-                            DatabaseManager.messagesDBReference.child(id).setValue(message)
-                            Toast.makeText(
-                                context,
-                                "has been sent ",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                                val id = FirebaseAuth.getInstance().currentUser!!.uid + " -- " + user.id
+                                val messageToSend = Message(id, message, FirebaseAuth.getInstance().currentUser!!.uid, user.id, userMe!!.userName, user.userName, user.userImage)
+                                // Setting:
+                                DatabaseManager.messagesDBReference.child(id).setValue(messageToSend)
+                                // Showing:
+                                Toast.makeText(context, context.getString(R.string.has_been_sent_msg), Toast.LENGTH_SHORT).show()
                             }
                         }
-
-
                     }
+                    // Building:
                     builder.show()
                     builder.create()
-
                 }
-
             }
             // Setting:
             toolImageView.setImageBitmap(tool.decode())
-
             requestTextView.text = tool.details
-
-
-
+            // Developing:
             acceptButton.setOnClickListener {
+                // Setting:
                 DatabaseManager.ordersDBReference.child(tool.ownerID).child(tool.toolID).removeValue()
+                // Removing:
                 tools.remove(tool)
-
+                // Notifying:
                 notifyDataSetChanged()
-
-
             }
-
             cancelButton.setOnClickListener {
-
+                // Setting:
                 DatabaseManager.ordersDBReference.child(tool.ownerID).child(tool.toolID).removeValue()
+                // Removing:
                 tools.remove(tool)
-
+                // Notifying:
                 notifyDataSetChanged()
             }
         }

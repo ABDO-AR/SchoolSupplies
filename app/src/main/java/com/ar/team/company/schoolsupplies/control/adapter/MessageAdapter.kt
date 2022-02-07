@@ -23,31 +23,18 @@ class MessageAdapter(private val context: Context, private val messages: ArrayLi
 
     override fun onBindViewHolder(holder: GeneralToolsViewHolder, position: Int) {
         // Initializing:
-        val tool = messages[position]
-
+        val message = messages[position]
         // Prepare:
         holder.binding.apply {
-
-            var message = messages[position]
-                // Setting:
-                if (message!!.userSenderImage != User.NO_USER_IMAGE) userImageView.setImageBitmap(message.decode())
-
-                if (FirebaseAuth.getInstance().currentUser!!.uid == message.userSenderID)
-                    userNameTextView.text = message.userReceiverName
-
-            else
-                    userNameTextView.text = message.userSenderName
-
-            messageTextView.text=message.message
-
-
-            }
-
-
+            // Checking:
+            if (message.userSenderImage != User.NO_USER_IMAGE) userImageView.setImageBitmap(message.decode())
+            // Checking:
+            if (FirebaseAuth.getInstance().currentUser!!.uid == message.userSenderID) userNameTextView.text = message.userReceiverName
+            else userNameTextView.text = message.userSenderName
+            // Setting:
+            messageTextView.text = message.message
         }
-
-
-
+    }
 
     override fun getItemCount(): Int = messages.size
 

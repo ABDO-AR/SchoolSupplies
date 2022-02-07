@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.ar.team.company.schoolsupplies.ui.fragments.home
 
 import android.content.Intent
@@ -8,9 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.ar.team.company.schoolsupplies.control.adapter.PagerAdapter
-import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.databinding.FragmentHomeBinding
-import com.ar.team.company.schoolsupplies.ui.activities.add.AddToolActivity
 import com.ar.team.company.schoolsupplies.ui.activities.home.HomeViewModel
 import com.ar.team.company.schoolsupplies.ui.activities.message.MessagesActivity
 import com.ar.team.company.schoolsupplies.ui.activities.search.SearchActivity

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.ar.team.company.schoolsupplies.model.models
 
 import android.graphics.Bitmap

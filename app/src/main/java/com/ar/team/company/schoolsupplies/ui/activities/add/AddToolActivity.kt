@@ -124,7 +124,7 @@ class AddToolActivity : AppCompatActivity() {
     // Method(Encode)
     private fun encode(uri: Uri): String {
         // Initializing:
-        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+        @Suppress("DEPRECATION") val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
         val stream = ByteArrayOutputStream()
         // Compressing:
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)

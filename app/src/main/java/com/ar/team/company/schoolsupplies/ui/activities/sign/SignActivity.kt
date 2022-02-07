@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.ar.team.company.schoolsupplies.ui.activities.sign
 
 import androidx.appcompat.app.AppCompatActivity

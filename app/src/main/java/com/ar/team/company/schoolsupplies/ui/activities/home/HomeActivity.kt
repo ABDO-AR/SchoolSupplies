@@ -12,6 +12,7 @@ import com.ar.team.company.schoolsupplies.databinding.ActivityHomeBinding
 import com.ar.team.company.schoolsupplies.ui.activities.add.AddToolActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+@Suppress("unused")
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 

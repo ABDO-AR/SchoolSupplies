@@ -25,7 +25,6 @@
     <string name="request_donate_msg">This user made a request for this widget that you offered to donate</string>
     <string name="would_you_like_to_msg">Would you like to</string>
     <string name="accept_msg">Accept</string>
-    <string name="cancel_msg">Cancel</string>
     <string name="or_msg">or</string>
     <string name="add_tool">Add Tool</string>
     <string name="tool_name">Tool Name</string>
@@ -76,4 +75,9 @@
     <string name="failure_msg">Failure to get data</string>
     <string name="view_by_year_msg">View By Year</string>
     <string name="orderd_msg">ordered</string>
+    <string name="send_message_to_msg">"send message to "</string>
+    <string name="cancel_msg">Cancel</string>
+    <string name="set_your_msg">set your message</string>
+    <string name="cannot_sent_empty_msg">it cannot be sent empty !!, please write message</string>
+    <string name="has_been_sent_msg">"has been sent "</string>
 </resources>
