@@ -5,7 +5,7 @@
     style="?attr/defAppBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activitys.sign.SignActivity">
+    tools:context=".ui.activities.sign.SignActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/host_container"

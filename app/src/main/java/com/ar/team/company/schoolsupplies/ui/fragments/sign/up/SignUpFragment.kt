@@ -16,8 +16,8 @@ import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.databinding.FragmentSignUpBinding
 import com.ar.team.company.schoolsupplies.model.intentions.SignIntentions
 import com.ar.team.company.schoolsupplies.model.states.SignViewStates
-import com.ar.team.company.schoolsupplies.ui.activitys.home.HomeActivity
-import com.ar.team.company.schoolsupplies.ui.activitys.sign.SignViewModel
+import com.ar.team.company.schoolsupplies.ui.activities.home.HomeActivity
+import com.ar.team.company.schoolsupplies.ui.activities.sign.SignViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint

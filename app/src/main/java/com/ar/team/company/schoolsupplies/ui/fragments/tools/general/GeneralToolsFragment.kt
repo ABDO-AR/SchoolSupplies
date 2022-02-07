@@ -13,7 +13,7 @@ import com.ar.team.company.schoolsupplies.control.adapter.GeneralToolsAdapter
 import com.ar.team.company.schoolsupplies.databinding.FragmentGeneralToolsBinding
 import com.ar.team.company.schoolsupplies.model.intentions.HomeIntentions
 import com.ar.team.company.schoolsupplies.model.states.HomeViewStates
-import com.ar.team.company.schoolsupplies.ui.activitys.home.HomeViewModel
+import com.ar.team.company.schoolsupplies.ui.activities.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

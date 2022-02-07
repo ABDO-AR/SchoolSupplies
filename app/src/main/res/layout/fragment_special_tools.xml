@@ -1,19 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.tools.special.SpecialToolsFragment">
+    tools:context=".ui.fragments.tools.special.SpecialToolsFragment"
+    android:orientation="vertical"
+    >
+
+
+    <HorizontalScrollView
+        android:id="@+id/scroll_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+
+        android:orientation="horizontal"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View By Year"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textSize="@dimen/_15sdp"
+        />
+
+            <Button
+                android:id="@+id/first_year_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginEnd="8dp"
+                android:text="@string/first_year"
+                android:textColor="@color/gray"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:backgroundTint="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:layout_margin="@dimen/_3sdp"
+                />
+            <Button
+                android:id="@+id/sec_year_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sec_year"
+                android:textColor="@color/gray"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:backgroundTint="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:layout_margin="@dimen/_3sdp"
+                />
+            <Button
+                android:id="@+id/third_year_button"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_3sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/third_year"
+                android:textColor="@color/gray"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:backgroundTint="@color/white"
+                android:textSize="@dimen/_12ssp"
+
+                />
+            <Button
+                android:id="@+id/four_year_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/four_year"
+                android:textColor="@color/gray"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:backgroundTint="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:layout_margin="@dimen/_3sdp"
+                />
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/special_tools_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_menu"
         tools:listitem="@layout/tool_item_view" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

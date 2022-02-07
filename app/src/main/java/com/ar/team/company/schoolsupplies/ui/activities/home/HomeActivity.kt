@@ -1,16 +1,15 @@
-package com.ar.team.company.schoolsupplies.ui.activitys.home
+package com.ar.team.company.schoolsupplies.ui.activities.home
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.databinding.ActivityHomeBinding
-import com.ar.team.company.schoolsupplies.ui.activitys.add.AddToolActivity
+import com.ar.team.company.schoolsupplies.ui.activities.add.AddToolActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

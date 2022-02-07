@@ -1,4 +1,4 @@
-package com.ar.team.company.schoolsupplies.ui.activitys.main
+package com.ar.team.company.schoolsupplies.ui.activities.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
 import com.ar.team.company.schoolsupplies.databinding.ActivityMainBinding
-import com.ar.team.company.schoolsupplies.ui.activitys.home.HomeActivity
-import com.ar.team.company.schoolsupplies.ui.activitys.sign.SignActivity
+import com.ar.team.company.schoolsupplies.ui.activities.home.HomeActivity
+import com.ar.team.company.schoolsupplies.ui.activities.sign.SignActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {

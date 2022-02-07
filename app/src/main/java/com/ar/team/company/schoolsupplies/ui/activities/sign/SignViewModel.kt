@@ -1,12 +1,10 @@
-package com.ar.team.company.schoolsupplies.ui.activitys.sign
+package com.ar.team.company.schoolsupplies.ui.activities.sign
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ar.team.company.schoolsupplies.control.repository.MainRepository
 import com.ar.team.company.schoolsupplies.model.intentions.SignIntentions
 import com.ar.team.company.schoolsupplies.model.states.SignViewStates
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

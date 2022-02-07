@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.databinding.FragmentWelcomeBinding
-import com.ar.team.company.schoolsupplies.ui.activitys.sign.SignViewModel
+import com.ar.team.company.schoolsupplies.ui.activities.sign.SignViewModel
 
 class WelcomeFragment : Fragment() {
 

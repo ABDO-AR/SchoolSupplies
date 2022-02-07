@@ -1,5 +1,6 @@
 package com.ar.team.company.schoolsupplies.ui.fragments.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +9,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.ar.team.company.schoolsupplies.control.adapter.PagerAdapter
 import com.ar.team.company.schoolsupplies.databinding.FragmentHomeBinding
-import com.ar.team.company.schoolsupplies.ui.activitys.home.HomeViewModel
+import com.ar.team.company.schoolsupplies.ui.activities.add.AddToolActivity
+import com.ar.team.company.schoolsupplies.ui.activities.home.HomeViewModel
+import com.ar.team.company.schoolsupplies.ui.activities.search.SearchActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -52,6 +55,14 @@ class HomeFragment : Fragment() {
         binding.viewPager.adapter = adapter
         // Attaching:
         if (!mediator!!.isAttached) mediator!!.attach()
+        binding.searchButton.setOnClickListener {
+            // Initializing:
+            val addSearchIntent = Intent(requireContext(), SearchActivity::class.java)
+            // Animations:
+            requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            // Starting:
+            startActivity(addSearchIntent)
+        }
     }
 
     // Method(OnConfigureTabs):

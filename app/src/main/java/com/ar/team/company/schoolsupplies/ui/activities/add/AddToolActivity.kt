@@ -1,4 +1,4 @@
-package com.ar.team.company.schoolsupplies.ui.activitys.add
+package com.ar.team.company.schoolsupplies.ui.activities.add
 
 import android.graphics.Bitmap
 import android.net.Uri
@@ -8,12 +8,15 @@ import android.text.TextUtils
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.ar.team.company.schoolsupplies.R
+import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.databinding.ActivityAddToolBinding
 import com.ar.team.company.schoolsupplies.model.intentions.AddToolIntentions
 import com.ar.team.company.schoolsupplies.model.models.Tool
@@ -23,12 +26,14 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 
+
 @AndroidEntryPoint
 class AddToolActivity : AppCompatActivity() {
 
     // Fields:
     private val binding: ActivityAddToolBinding by lazy { ActivityAddToolBinding.inflate(layoutInflater) }
     private val model: AddViewModel by viewModels()
+    private var spinnerText: String ="General Tool"
 
     // ImagePicker:
     private lateinit var imagePicker: ActivityResultLauncher<String>
@@ -49,10 +54,32 @@ class AddToolActivity : AppCompatActivity() {
         // Developing:
         binding.backButton.setOnClickListener { onBackPressed() }
         binding.toolUploadTextView.setOnClickListener { imagePicker.launch("image/*") }
+
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.type_tool, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
+        )
+        binding.toolTypeSpinner.adapter = adapter
+
         binding.saveButton.setOnClickListener {
             // Submitting:
-            submit(binding.toolNameEditText.text.toString(), binding.detailsEditText.text.toString(), "EMPTY")
+            submit(binding.toolNameEditText.text.toString(), binding.detailsEditText.text.toString(), spinnerText)
         }
+
+
+        binding.toolTypeSpinner
+            .setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(arg0: AdapterView<*>, arg1: View?, arg2: Int, arg3: Long) {
+                    spinnerText = binding.toolTypeSpinner.getSelectedItem() as String
+
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+
+            })
     }
 
     // Method(Submit):
@@ -67,7 +94,7 @@ class AddToolActivity : AppCompatActivity() {
             // Coroutines:
             else -> lifecycleScope.launchWhenCreated {
                 // Submitting:
-                model.toolChannel.send(AddToolIntentions.Upload(Tool(name, details, type, encodedImage!!, FirebaseAuth.getInstance().currentUser!!.uid)))
+                model.toolChannel.send(AddToolIntentions.Upload(Tool(DatabaseManager.toolsDBReference.push().key.toString(),name, details, type, encodedImage!!, FirebaseAuth.getInstance().currentUser!!.uid,"")))
                 // Enabling(Progress):
                 progressToggle(true)
                 // Collecting:
@@ -75,7 +102,7 @@ class AddToolActivity : AppCompatActivity() {
                     // Checking:
                     when (it) {
                         // Singing:
-                        is AddToolViewStates.Success -> progressToggle(false).also { onBackPressed() }
+                        is AddToolViewStates.Success -> progressToggle(false).also { finish() }
                         is AddToolViewStates.Failure -> progressToggle(false).also { Log.d(TAG, "submit: ${getString(R.string.something_wrong_in_upload_msg)}") }
                     }
                 }

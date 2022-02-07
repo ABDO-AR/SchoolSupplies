@@ -5,7 +5,7 @@
     style="?attr/defAppBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activitys.home.HomeActivity">
+    tools:context=".ui.activities.home.HomeActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/home_host_container"

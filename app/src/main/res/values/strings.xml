@@ -29,6 +29,7 @@
     <string name="or_msg">or</string>
     <string name="add_tool">Add Tool</string>
     <string name="tool_name">Tool Name</string>
+    <string name="search_name">Search By Name</string>
     <string name="details_tool">Details</string>
     <string name="type_tool">Tool Type</string>
     <string name="save">Save</string>
@@ -51,6 +52,10 @@
     <string name="enter_password">PASSWORD</string>
     <string name="enter_password_again">PASSWORD AGAIN</string>
     <string name="password_confirm">The password confirmation is incorrect</string>
+    <string name="first_year">First year</string>
+    <string name="sec_year">Second year</string>
+    <string name="third_year">Third year</string>
+    <string name="four_year">Fourth year</string>
     <!-- Demo -->
     <string name="description_demo">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
     <string name="name_demo">ABDO-AR</string>

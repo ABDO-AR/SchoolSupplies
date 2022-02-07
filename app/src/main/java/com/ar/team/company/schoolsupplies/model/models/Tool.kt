@@ -5,10 +5,12 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 
 @Suppress("unused")
-data class Tool(val name: String, val details: String, val type: String, val toolImage: String, val ownerID: String) {
+data class Tool(
+    var toolID:String, val name: String, val details: String,
+    val type: String, val toolImage: String, val ownerID: String, var toolRequestID: String) {
 
     // Constructor:
-    constructor() : this("", "", "", "", "")
+    constructor() : this("","", "", "", "", "","")
 
     // Method(Decode):
     fun decode(): Bitmap {

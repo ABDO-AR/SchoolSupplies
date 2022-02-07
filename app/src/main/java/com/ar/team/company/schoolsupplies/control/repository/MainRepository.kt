@@ -37,7 +37,8 @@ class MainRepository(private val auth: FirebaseAuth, private val manager: Databa
     // Method(UploadTool):
     override suspend fun uploadTool(intention: AddToolIntentions.Upload, tool: (success: Boolean) -> Unit) {
         // Uploading:
-        manager.toolsDBReference.child("${intention.tool.ownerID}___${intention.tool.name}").setValue(intention.tool).addOnSuccessListener { tool(true) }
+
+        manager.toolsDBReference.child(intention.tool.toolID).setValue(intention.tool).addOnSuccessListener { tool(true) }
     }
 
     // Method(GetTools):

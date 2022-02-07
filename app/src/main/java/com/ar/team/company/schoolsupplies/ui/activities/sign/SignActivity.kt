@@ -1,9 +1,8 @@
-package com.ar.team.company.schoolsupplies.ui.activitys.sign
+package com.ar.team.company.schoolsupplies.ui.activities.sign
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.ar.team.company.schoolsupplies.databinding.ActivitySignBinding
 import dagger.hilt.android.AndroidEntryPoint
 

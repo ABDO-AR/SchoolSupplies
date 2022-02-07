@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.home.HomeFragment">
+    tools:context=".ui.fragments.home.HomeFragment"
+    android:id="@+id/layout"
+    >
 
     <ImageButton
         android:id="@+id/messanger_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/messanger_icon_des"
@@ -19,6 +21,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_messanger"
         tools:ignore="TouchTargetSizeCheck" />
+    <ImageButton
+        android:id="@+id/search_button"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/messanger_icon_des"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_search_24"
+        tools:ignore="TouchTargetSizeCheck"
+        app:tint="@color/black_1" />
 
     <ImageView
         android:id="@+id/app_image_view"

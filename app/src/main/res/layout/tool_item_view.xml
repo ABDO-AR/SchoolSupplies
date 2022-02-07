@@ -45,7 +45,7 @@
             android:id="@+id/details_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/_8sdp"
             android:text="@string/details_msg"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/black"
@@ -110,6 +110,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/tool_image_view_des"
                 android:scaleType="centerCrop"
+                android:src="@drawable/app_placeholder"
                 tools:srcCompat="@tools:sample/avatars" />
 
         </com.google.android.material.card.MaterialCardView>
