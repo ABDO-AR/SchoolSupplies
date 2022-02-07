@@ -1,15 +1,20 @@
 package com.ar.team.company.schoolsupplies.control.adapter
 
 import android.content.Context
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.databinding.OrderItemViewBinding
+import com.ar.team.company.schoolsupplies.model.models.Message
 import com.ar.team.company.schoolsupplies.model.models.Tool
 import com.ar.team.company.schoolsupplies.model.models.User
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 
 class OrdersAdapter(private val context: Context, private val tools: ArrayList<Tool>) : RecyclerView.Adapter<OrdersAdapter.GeneralToolsViewHolder>() {
@@ -40,6 +45,60 @@ class OrdersAdapter(private val context: Context, private val tools: ArrayList<T
                 if (user!!.userImage != User.NO_USER_IMAGE) userImageView.setImageBitmap(user.decode())
                 userNameTextView.text = user.userName
 
+                messageButton.setOnClickListener {
+                    //setup AlertDialog
+                    val builder = MaterialAlertDialogBuilder(context)
+                    //set message in alertDialog
+                    builder.setTitle("send message to "+user.userName)
+                    //set when click Cancel
+                    builder.setNegativeButton("Cancel", null)
+                    // init Edit text
+                    val name = EditText(context)
+                    name.hint = "set your message"
+
+                    // build edit Text in alert
+                    // build edit Text in alert
+                    builder.setView(name)
+                    // when click update
+                    // when click update
+                    builder.setPositiveButton("Send") { dialog, which ->
+                        val message = name.text.toString()
+                        //   product.setNameProduct(newName);
+                        // Helper.productsList.get(position).setNameProduct(newName);
+                        if (message.isEmpty())
+                            Toast.makeText(
+                            context,
+                            "it cannot be sent empty !!, please write message",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        else
+                        {
+                            // Getting:
+                            DatabaseManager.usersDBReference.child(tool.ownerID).get().addOnSuccessListener {
+                                // Initializing:
+                                val userMe = it.getValue(User::class.java)
+
+
+                            var id = FirebaseAuth.getInstance().currentUser!!.uid +" -- "+user.id
+                            var message = Message(id, message  ,FirebaseAuth.getInstance().currentUser!!.uid ,user.id
+                                    ,
+                                userMe!!.userName ,user.userName,user.userImage )
+                            DatabaseManager.messagesDBReference.child(id).setValue(message)
+                            Toast.makeText(
+                                context,
+                                "has been sent ",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            }
+                        }
+
+
+                    }
+                    builder.show()
+                    builder.create()
+
+                }
+
             }
             // Setting:
             toolImageView.setImageBitmap(tool.decode())
@@ -64,6 +123,8 @@ class OrdersAdapter(private val context: Context, private val tools: ArrayList<T
 
                 notifyDataSetChanged()
             }
+
+
         }
     }
 

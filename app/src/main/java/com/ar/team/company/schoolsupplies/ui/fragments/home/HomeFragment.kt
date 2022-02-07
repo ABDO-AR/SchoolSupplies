@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.ar.team.company.schoolsupplies.control.adapter.PagerAdapter
+import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.databinding.FragmentHomeBinding
 import com.ar.team.company.schoolsupplies.ui.activities.add.AddToolActivity
 import com.ar.team.company.schoolsupplies.ui.activities.home.HomeViewModel
+import com.ar.team.company.schoolsupplies.ui.activities.message.MessagesActivity
 import com.ar.team.company.schoolsupplies.ui.activities.search.SearchActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -56,8 +58,19 @@ class HomeFragment : Fragment() {
         // Attaching:
         if (!mediator!!.isAttached) mediator!!.attach()
         binding.searchButton.setOnClickListener {
+
             // Initializing:
             val addSearchIntent = Intent(requireContext(), SearchActivity::class.java)
+            // Animations:
+            requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            // Starting:
+            startActivity(addSearchIntent)
+        }
+
+        binding.messangerButton.setOnClickListener {
+
+            // Initializing:
+            val addSearchIntent = Intent(requireContext(), MessagesActivity::class.java)
             // Animations:
             requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             // Starting:

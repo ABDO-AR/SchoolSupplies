@@ -43,6 +43,10 @@ class OrdersFragment : Fragment() {
 
         binding.rvListOrder.adapter = adapter
 
+        binding.backButton.setOnClickListener {
+
+
+        }
         getDataOrders()
         // Returning:
         return binding.root
@@ -72,7 +76,8 @@ class OrdersFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getDataOrders()
     {
-        DatabaseManager.ordersDBReference.child(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener {
+        DatabaseManager.ordersDBReference.child(FirebaseAuth.getInstance().currentUser!!.uid).get()
+            .addOnSuccessListener {
 
             for (tool in it.children) {
                 // Adding:

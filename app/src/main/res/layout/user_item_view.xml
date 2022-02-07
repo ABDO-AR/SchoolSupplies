@@ -7,12 +7,16 @@
     android:layout_margin="16dp"
     android:backgroundTint="@color/white"
     android:elevation="9dp"
+
+    android:id="@+id/layout"
     app:cardCornerRadius="8dp"
     app:cardElevation="9dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        >
 
         <TextView
             android:id="@+id/user_name_text_view"
@@ -39,6 +43,7 @@
             android:elevation="9dp"
             app:cardCornerRadius="888dp"
             app:cardElevation="9dp"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -49,6 +54,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/tool_image_view_des"
                 android:scaleType="centerCrop"
+
                 android:src="@drawable/app_placeholder"
                 tools:srcCompat="@tools:sample/avatars" />
 
