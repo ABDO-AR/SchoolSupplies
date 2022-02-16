@@ -85,6 +85,8 @@ class OrdersAdapter(private val context: Context, private val tools: ArrayList<T
                 DatabaseManager.ordersDBReference.child(tool.ownerID).child(tool.toolID).removeValue()
                 // Removing:
                 tools.remove(tool)
+                DatabaseManager.toolsDBReference.child(tool.toolBasicID).child("toolAcceptedIDs").setValue(tool.toolAcceptedIDs+","+tool.toolRequestID)
+
                 // Notifying:
                 notifyDataSetChanged()
             }
@@ -93,6 +95,9 @@ class OrdersAdapter(private val context: Context, private val tools: ArrayList<T
                 DatabaseManager.ordersDBReference.child(tool.ownerID).child(tool.toolID).removeValue()
                 // Removing:
                 tools.remove(tool)
+                //Adding
+                DatabaseManager.toolsDBReference.child(tool.toolBasicID).child("toolRejectedIDs").setValue(tool.toolRejectedIDs+","+tool.toolRequestID)
+
                 // Notifying:
                 notifyDataSetChanged()
             }

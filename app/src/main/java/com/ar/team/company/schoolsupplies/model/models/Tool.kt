@@ -6,11 +6,12 @@ import android.util.Base64
 
 @Suppress("unused")
 data class Tool(
-    var toolID:String, val name: String, val details: String,
-    val type: String, val toolImage: String, val ownerID: String, var toolRequestID: String) {
+    var toolID:String,var toolBasicID:String, val name: String, val details: String,
+    val type: String, val toolImage: String, val ownerID: String, var toolRequestID: String, var toolRejectedIDs: String
+    , var toolAcceptedIDs: String) {
 
     // Constructor:
-    constructor() : this("","", "", "", "", "","")
+    constructor() : this("","","", "", "", "", "","","","")
 
     // Method(Decode):
     fun decode(): Bitmap {

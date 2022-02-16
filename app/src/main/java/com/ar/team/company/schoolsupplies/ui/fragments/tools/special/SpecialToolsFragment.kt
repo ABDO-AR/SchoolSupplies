@@ -76,7 +76,7 @@ class SpecialToolsFragment : Fragment() {
 
     private fun rendering(filtrationType: String) {
         // Loading:
-        progressToggle(true)
+    //    progressToggle(true)
         // Coroutines:
         lifecycleScope.launchWhenCreated {
             // Sending:

@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="@dimen/_10sdp"
     android:backgroundTint="@color/white"
     android:elevation="9dp"
 
     android:id="@+id/layout"
     app:cardCornerRadius="8dp"
-    app:cardElevation="9dp">
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,7 +30,7 @@
             android:text="@string/name_demo"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_13ssp"
 
             app:layout_constraintStart_toEndOf="@+id/materialCardView3"
             app:layout_constraintTop_toTopOf="parent" />

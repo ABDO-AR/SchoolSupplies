@@ -15,12 +15,18 @@
     <string name="school_name_hint">school name</string>
     <string name="address_hint">address</string>
     <!-- Messages -->
+    <string name="login">login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="just_moment">Just a moment..</string>
+
     <string name="welcome_msg">Welcome</string>
     <string name="login_msg">Login</string>
     <string name="create_an_account_msg">Create an account, Sign Up</string>
     <string name="i_have_an_account_msg">I have An Account, Login</string>
     <string name="sign_up_msg">Sign up</string>
     <string name="request_msg">Request</string>
+    <string name="request_msg_reject">Rejected</string>
+    <string name="request_msg_accept">Accepted</string>
     <string name="details_msg">Details</string>
     <string name="request_donate_msg">This user made a request for this widget that you offered to donate</string>
     <string name="would_you_like_to_msg">Would you like to</string>
@@ -74,7 +80,7 @@
     <string name="something_wrong_in_upload_msg">Something wrong in uploading tool</string>
     <string name="failure_msg">Failure to get data</string>
     <string name="view_by_year_msg">View By Year</string>
-    <string name="orderd_msg">ordered</string>
+    <string name="orderd_msg">Message</string>
     <string name="send_message_to_msg">"send message to "</string>
     <string name="cancel_msg">Cancel</string>
     <string name="set_your_msg">set your message</string>

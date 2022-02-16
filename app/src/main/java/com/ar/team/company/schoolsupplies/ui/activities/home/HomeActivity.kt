@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.databinding.ActivityHomeBinding
 import com.ar.team.company.schoolsupplies.ui.activities.add.AddToolActivity
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("unused")
@@ -27,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
     companion object {
         // Tags:
         const val TAG: String = "HomeActivity"
+         val userMeID: String = FirebaseAuth.getInstance().currentUser!!.uid
     }
 
     // Method(OnCreate):

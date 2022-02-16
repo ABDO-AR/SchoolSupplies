@@ -65,7 +65,7 @@ class GeneralToolsFragment : Fragment() {
 
     private fun rendering() {
         // Loading:
-        progressToggle(true)
+ //  progressToggle(true)
         // Coroutines:
         lifecycleScope.launchWhenCreated {
             // Sending:

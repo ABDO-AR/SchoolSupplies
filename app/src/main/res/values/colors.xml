@@ -25,6 +25,7 @@
 
     <!-- AR addition colors -->
     <color name="ar_addition_green_color">#3ABCA3</color>
+    <color name="green_color">#4EE80C</color>
     <color name="ar_addition_limon_color">#6ED5A1</color>
     <color name="ar_addition_orange_color">#FEC166</color>
     <color name="ar_addition_brown_color">#935B44</color>
@@ -37,5 +38,7 @@
     <color name="black_1">#252525</color>
     <color name="black">#FF000000</color>
     <color name="gray">#8C8C8C</color>
+    <color name="gray_light">#EFEDED</color>
+    <color name="red">#E40505</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

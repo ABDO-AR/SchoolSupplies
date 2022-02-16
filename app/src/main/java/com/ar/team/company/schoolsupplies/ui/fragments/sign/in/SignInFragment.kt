@@ -1,7 +1,9 @@
 package com.ar.team.company.schoolsupplies.ui.fragments.sign.`in`
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.ar.team.company.schoolsupplies.R
+import com.ar.team.company.schoolsupplies.control.interfaces.LoadingDialog
 import com.ar.team.company.schoolsupplies.databinding.FragmentSignInBinding
 import com.ar.team.company.schoolsupplies.model.intentions.SignIntentions
 import com.ar.team.company.schoolsupplies.model.states.SignViewStates
@@ -29,6 +32,7 @@ class SignInFragment : Fragment() {
     // Fields:
     private var _binding: FragmentSignInBinding? = null
     private val binding: FragmentSignInBinding get() = _binding!!
+    private lateinit var  loading:LoadingDialog;
 
     // ViewModel:
     private val model: SignViewModel by viewModels()
@@ -59,20 +63,45 @@ class SignInFragment : Fragment() {
         // Super:
         super.onViewCreated(view, savedInstanceState)
         // Initializing:
+         loading = LoadingDialog(requireActivity())
         binding.signUpTextView.setOnClickListener { controller.navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()) }
         binding.signInButton.setOnClickListener { submit(binding.emailEditText.text.toString(), binding.passwordEditText.text.toString()) }
     }
 
     // Method(Submit):
     private fun submit(email: String, password: String) {
+        loading.startLoading()
+
+
         // Checking:
         when {
             // Checking:
-            TextUtils.isEmpty(email) -> Snackbar.make(binding.root, R.string.email_is_empty, Snackbar.LENGTH_SHORT).show()
-            password.length < 5 -> Snackbar.make(binding.root, R.string.password_is_empty, Snackbar.LENGTH_SHORT).show()
+            TextUtils.isEmpty(email) ->
+            {
+                loading.isDismiss()
+                Snackbar.make(
+                    binding.root,
+                    R.string.email_is_empty,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
+            password.length < 5 ->
+            {
+                loading.isDismiss()
+                Snackbar.make(
+                    binding.root,
+                    R.string.password_is_empty,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
             // Coroutines:
-            else -> lifecycleScope.launchWhenCreated {
+            else ->
+
+                    lifecycleScope. launchWhenCreated {
                 // Submitting:
+
                 model.signChannel.send(SignIntentions.SignIn(email, password))
                 // Enabling(Progress):
                 progressToggle(true)
@@ -81,12 +110,37 @@ class SignInFragment : Fragment() {
                     // Checking:
                     when (it) {
                         // Singing:
-                        is SignViewStates.Success -> progressToggle(false).also { homeActivity() }
-                        is SignViewStates.Failure -> progressToggle(false).also { if (auth.currentUser !== null) homeActivity() else Log.d(TAG, "submit: ${getString(R.string.error_create_user)}") }
+                        is SignViewStates.Success -> progressToggle(false).also {
+
+                            val handler = Handler()
+                            handler.postDelayed(object :Runnable{
+                                override fun run() {
+
+                                    loading.isDismiss()
+                                    homeActivity()
+                                }
+
+                            },500)
+                           }
+
+                       is  SignViewStates.Failure -> progressToggle(false).also {
+                                Log.d(
+                                    TAG,
+                                    "submit: ${getString(R.string.error_create_user)}"
+
+                                )
+
+                            }
+
+
+
+
                     }
                 }
             }
+
         }
+
     }
 
     // Method(HomeActivity):
@@ -96,7 +150,10 @@ class SignInFragment : Fragment() {
     private fun progressToggle(visible: Boolean) {
         // Toggling:
         binding.signInButton.visibility = if (visible) View.GONE else View.VISIBLE
-        binding.signInProgress.visibility = if (visible) View.VISIBLE else View.GONE
+        if (!visible)
+        {
+//loading.isDismiss()
+        }
     }
 
     // Method(OnDestroyView):

@@ -1,5 +1,6 @@
 package com.ar.team.company.schoolsupplies.control.managers
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -12,6 +13,7 @@ object DatabaseManager {
     const val TOOLS_DB_REFERENCE: String = "Tools"
     const val ORDERS_DB_REFERENCE: String = "Orders"
     const val MESSAGES_DB_REFERENCE: String = "Messages"
+
 
     // Database:
     val db: FirebaseDatabase = FirebaseDatabase.getInstance()

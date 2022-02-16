@@ -14,8 +14,10 @@ import com.ar.team.company.schoolsupplies.databinding.FragmentHomeBinding
 import com.ar.team.company.schoolsupplies.ui.activities.home.HomeViewModel
 import com.ar.team.company.schoolsupplies.ui.activities.message.MessagesActivity
 import com.ar.team.company.schoolsupplies.ui.activities.search.SearchActivity
+import com.ar.team.company.schoolsupplies.ui.activities.sign.SignActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeFragment : Fragment() {
 
@@ -67,6 +69,11 @@ class HomeFragment : Fragment() {
             startActivity(addSearchIntent)
         }
 
+        binding.logoutButton.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(requireContext(), SignActivity::class.java))
+            requireActivity().finish()
+        }
         binding.messangerButton.setOnClickListener {
 
             // Initializing:
@@ -77,6 +84,7 @@ class HomeFragment : Fragment() {
             startActivity(addSearchIntent)
         }
     }
+
 
     // Method(OnConfigureTabs):
     private fun onConfigureTabs(tab: TabLayout.Tab, index: Int) = tab.setText(adapter!!.getHeader(index))

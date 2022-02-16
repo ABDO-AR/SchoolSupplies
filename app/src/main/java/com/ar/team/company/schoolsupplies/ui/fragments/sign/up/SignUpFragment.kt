@@ -1,5 +1,6 @@
 package com.ar.team.company.schoolsupplies.ui.fragments.sign.up
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -13,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.ar.team.company.schoolsupplies.R
+import com.ar.team.company.schoolsupplies.control.interfaces.LoadingDialog
 import com.ar.team.company.schoolsupplies.databinding.FragmentSignUpBinding
 import com.ar.team.company.schoolsupplies.model.intentions.SignIntentions
 import com.ar.team.company.schoolsupplies.model.states.SignViewStates
@@ -30,6 +32,7 @@ class SignUpFragment : Fragment() {
     private var _binding: FragmentSignUpBinding? = null
     private val binding: FragmentSignUpBinding get() = _binding!!
 
+    private lateinit var  loading: LoadingDialog;
     // ViewModel:
     private val model: SignViewModel by viewModels()
 
@@ -51,6 +54,7 @@ class SignUpFragment : Fragment() {
         // Initializing:
         _binding = FragmentSignUpBinding.inflate(layoutInflater, container, false)
         // Returning:
+        loading = LoadingDialog(requireActivity())
         return binding.root
     }
 
@@ -77,19 +81,61 @@ class SignUpFragment : Fragment() {
     // Method(Submit):
     private fun submit(email: String, password: String, currentYear: String, userName: String, schoolName: String, phoneNumber: String, address: String) {
         // Checking:
+
         when {
             // Checking:
-            TextUtils.isEmpty(email) -> Snackbar.make(binding.root, R.string.email_is_empty, Snackbar.LENGTH_SHORT).show()
-            password.length < 5 -> Snackbar.make(binding.root, R.string.password_is_empty, Snackbar.LENGTH_SHORT).show()
-            TextUtils.isEmpty(userName) -> Snackbar.make(binding.root, R.string.user_is_empty, Snackbar.LENGTH_SHORT).show()
-            TextUtils.isEmpty(currentYear) -> Snackbar.make(binding.root, R.string.year_is_empty, Snackbar.LENGTH_SHORT).show()
-            TextUtils.isEmpty(phoneNumber) -> Snackbar.make(binding.root, R.string.phone_is_empty, Snackbar.LENGTH_SHORT).show()
-            TextUtils.isEmpty(schoolName) -> Snackbar.make(binding.root, R.string.school_is_empty, Snackbar.LENGTH_SHORT).show()
-            TextUtils.isEmpty(address) -> Snackbar.make(binding.root, R.string.address_is_empty, Snackbar.LENGTH_SHORT).show()
+            TextUtils.isEmpty(email) -> Snackbar.make(
+                binding.root,
+                R.string.email_is_empty,
+                Snackbar.LENGTH_SHORT
+            ).show()
+            password.length < 5 -> Snackbar.make(
+                binding.root,
+                R.string.password_is_empty,
+                Snackbar.LENGTH_SHORT
+            ).show()
+            TextUtils.isEmpty(userName) -> Snackbar.make(
+                binding.root,
+                R.string.user_is_empty,
+                Snackbar.LENGTH_SHORT
+            ).show()
+            TextUtils.isEmpty(currentYear) -> Snackbar.make(
+                binding.root,
+                R.string.year_is_empty,
+                Snackbar.LENGTH_SHORT
+            ).show()
+            TextUtils.isEmpty(phoneNumber) -> Snackbar.make(
+                binding.root,
+                R.string.phone_is_empty,
+                Snackbar.LENGTH_SHORT
+            ).show()
+            TextUtils.isEmpty(schoolName) -> Snackbar.make(
+                binding.root,
+                R.string.school_is_empty,
+                Snackbar.LENGTH_SHORT
+            ).show()
+            TextUtils.isEmpty(address) -> Snackbar.make(
+                binding.root,
+                R.string.address_is_empty,
+                Snackbar.LENGTH_SHORT
+            ).show()
             // Coroutines:
-            else -> lifecycleScope.launchWhenCreated {
+            else -> {
+                loading.startLoading()
+
+                lifecycleScope.launchWhenCreated {
                 // Submitting:
-                model.signChannel.send(SignIntentions.SignUp(email, password, currentYear, userName, schoolName, phoneNumber, address))
+                model.signChannel.send(
+                    SignIntentions.SignUp(
+                        email,
+                        password,
+                        currentYear,
+                        userName,
+                        schoolName,
+                        phoneNumber,
+                        address
+                    )
+                )
                 // Enabling(Progress):
                 progressToggle(true)
                 // Collecting:
@@ -97,11 +143,20 @@ class SignUpFragment : Fragment() {
                     // Checking:
                     when (it) {
                         // Singing:
-                        is SignViewStates.Success -> progressToggle(false).also { homeActivity() }
-                        is SignViewStates.Failure -> progressToggle(false).also { if (auth.currentUser !== null) homeActivity() else Log.d(TAG, "submit: ${getString(R.string.error_create_user)}") }
+                        is SignViewStates.Success -> progressToggle(false).also {
+
+                            homeActivity() }
+                        is SignViewStates.Failure -> progressToggle(false).also {
+
+                            if (auth.currentUser !== null) homeActivity() else Log.d(
+                                TAG,
+                                "submit: ${getString(R.string.error_create_user)}"
+                            )
+                        }
                     }
                 }
             }
+        }
         }
     }
 
@@ -112,7 +167,7 @@ class SignUpFragment : Fragment() {
     private fun progressToggle(visible: Boolean) {
         // Toggling:
         binding.signUpButton.visibility = if (visible) View.GONE else View.VISIBLE
-        binding.signUpProgress.visibility = if (visible) View.VISIBLE else View.GONE
+        //binding.signUpProgress.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     // Method(OnDestroyView):
