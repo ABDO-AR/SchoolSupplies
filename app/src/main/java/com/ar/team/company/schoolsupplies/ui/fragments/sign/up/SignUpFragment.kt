@@ -148,10 +148,14 @@ class SignUpFragment : Fragment() {
                             homeActivity() }
                         is SignViewStates.Failure -> progressToggle(false).also {
 
-                            if (auth.currentUser !== null) homeActivity() else Log.d(
-                                TAG,
-                                "submit: ${getString(R.string.error_create_user)}"
-                            )
+                            if (auth.currentUser !== null) homeActivity() else {
+                                Log.d(
+                                    TAG,
+                                    "submit: ${getString(R.string.error_create_user)}"
+                                )
+                                loading.isDismiss()
+                                Snackbar.make(binding.root, getString(R.string.error_create_user), Snackbar.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }

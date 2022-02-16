@@ -32,7 +32,7 @@ class SignInFragment : Fragment() {
     // Fields:
     private var _binding: FragmentSignInBinding? = null
     private val binding: FragmentSignInBinding get() = _binding!!
-    private lateinit var  loading:LoadingDialog;
+    private lateinit var loading: LoadingDialog;
 
     // ViewModel:
     private val model: SignViewModel by viewModels()
@@ -63,7 +63,7 @@ class SignInFragment : Fragment() {
         // Super:
         super.onViewCreated(view, savedInstanceState)
         // Initializing:
-         loading = LoadingDialog(requireActivity())
+        loading = LoadingDialog(requireActivity())
         binding.signUpTextView.setOnClickListener { controller.navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment()) }
         binding.signInButton.setOnClickListener { submit(binding.emailEditText.text.toString(), binding.passwordEditText.text.toString()) }
     }
@@ -76,8 +76,7 @@ class SignInFragment : Fragment() {
         // Checking:
         when {
             // Checking:
-            TextUtils.isEmpty(email) ->
-            {
+            TextUtils.isEmpty(email) -> {
                 loading.isDismiss()
                 Snackbar.make(
                     binding.root,
@@ -86,8 +85,7 @@ class SignInFragment : Fragment() {
                 ).show()
             }
 
-            password.length < 5 ->
-            {
+            password.length < 5 -> {
                 loading.isDismiss()
                 Snackbar.make(
                     binding.root,
@@ -99,45 +97,42 @@ class SignInFragment : Fragment() {
             // Coroutines:
             else ->
 
-                    lifecycleScope. launchWhenCreated {
-                // Submitting:
+                lifecycleScope.launchWhenCreated {
+                    // Submitting:
 
-                model.signChannel.send(SignIntentions.SignIn(email, password))
-                // Enabling(Progress):
-                progressToggle(true)
-                // Collecting:
-                model.state.collect {
-                    // Checking:
-                    when (it) {
-                        // Singing:
-                        is SignViewStates.Success -> progressToggle(false).also {
+                    model.signChannel.send(SignIntentions.SignIn(email, password))
+                    // Enabling(Progress):
+                    progressToggle(true)
+                    // Collecting:
+                    model.state.collect {
+                        // Checking:
+                        when (it) {
+                            // Singing:
+                            is SignViewStates.Success -> progressToggle(false).also {
 
-                            val handler = Handler()
-                            handler.postDelayed(object :Runnable{
-                                override fun run() {
+                                val handler = Handler()
+                                handler.postDelayed(object : Runnable {
+                                    override fun run() {
 
-                                    loading.isDismiss()
-                                    homeActivity()
-                                }
+                                        loading.isDismiss()
+                                        homeActivity()
+                                    }
 
-                            },500)
-                           }
+                                }, 500)
+                            }
 
-                       is  SignViewStates.Failure -> progressToggle(false).also {
+                            is SignViewStates.Failure -> progressToggle(false).also {
                                 Log.d(
                                     TAG,
                                     "submit: ${getString(R.string.error_create_user)}"
 
                                 )
-
+                                loading.isDismiss()
+                                Snackbar.make(binding.root, getString(R.string.error_create_user), Snackbar.LENGTH_SHORT).show()
                             }
-
-
-
-
+                        }
                     }
                 }
-            }
 
         }
 
@@ -150,8 +145,7 @@ class SignInFragment : Fragment() {
     private fun progressToggle(visible: Boolean) {
         // Toggling:
         binding.signInButton.visibility = if (visible) View.GONE else View.VISIBLE
-        if (!visible)
-        {
+        if (!visible) {
 //loading.isDismiss()
         }
     }

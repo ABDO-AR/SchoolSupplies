@@ -14,7 +14,8 @@ class MainRepository(private val auth: FirebaseAuth, private val manager: Databa
     // Method(SignIn):
     override suspend fun signIn(intention: SignIntentions.SignIn, sign: (success: Boolean) -> Unit) {
         // Signing:
-        auth.signInWithEmailAndPassword(intention.email, intention.password).addOnSuccessListener { sign(true) }
+        auth.signInWithEmailAndPassword(intention.email, intention.password)
+            .addOnFailureListener { sign(false) }.addOnSuccessListener { sign(true) }
     }
 
     // Method(SignUp):
@@ -26,8 +27,9 @@ class MainRepository(private val auth: FirebaseAuth, private val manager: Databa
             // Initializing:
             user = User(it.user!!.uid, intention.userName, intention.schoolName, intention.currentYear, intention.email, intention.password, intention.phoneNumber, intention.address)
             // Uploading:
-            manager.usersDBReference.child(user!!.id).setValue(user).addOnSuccessListener { sign(true) }
-        }
+            manager.usersDBReference.child(user!!.id).setValue(user)
+                .addOnSuccessListener { sign(true) }.addOnFailureListener { sign(false) }
+        }.addOnFailureListener { sign(false) }
     }
 
     // Method(UploadTool):
