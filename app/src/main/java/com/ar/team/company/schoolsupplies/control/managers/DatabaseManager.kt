@@ -14,6 +14,10 @@ object DatabaseManager {
     const val ORDERS_DB_REFERENCE: String = "Orders"
     const val MESSAGES_DB_REFERENCE: String = "Messages"
 
+    // Constance(Storage):
+    const val TOOLS_IMAGES_URL: String = "gs://schoolsupplies-b9361.appspot.com"
+    const val TOOLS_IMAGES_FOLDER_NAME: String = "tools_images"
+
 
     // Database:
     val db: FirebaseDatabase = FirebaseDatabase.getInstance()

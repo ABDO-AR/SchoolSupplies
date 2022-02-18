@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.databinding.ToolItemViewBinding
@@ -36,23 +37,20 @@ class SpecialToolsAdapter(private val context: Context, private val tools: Array
         // Prepare:
 
 
-
         holder.binding.apply {
             // Checking
             if (tool.toolRequestID.contains(FirebaseAuth.getInstance().currentUser!!.uid))
                 requestButton.text = context.getString(R.string.orderd_msg) else requestButton.text = context.getString(R.string.request_msg)
 
-            if (tool.toolAcceptedIDs.contains(FirebaseAuth.getInstance().currentUser!!.uid))
-            {
-                stateButton.visibility=View.VISIBLE
-                stateButton.text=context.getString(R.string.request_msg_accept)
+            if (tool.toolAcceptedIDs.contains(FirebaseAuth.getInstance().currentUser!!.uid)) {
+                stateButton.visibility = View.VISIBLE
+                stateButton.text = context.getString(R.string.request_msg_accept)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     stateButton.setBackgroundColor(context.getColor(R.color.green_color))
                 }
 
-            }
-            else if (tool.toolRejectedIDs.contains(FirebaseAuth.getInstance().currentUser!!.uid))
-                stateButton.visibility=View.VISIBLE
+            } else if (tool.toolRejectedIDs.contains(FirebaseAuth.getInstance().currentUser!!.uid))
+                stateButton.visibility = View.VISIBLE
 
             // Checking:
             if (tool.ownerID.trim() != FirebaseAuth.getInstance().currentUser!!.uid.trim()) requestButton.visibility = View.VISIBLE
@@ -66,7 +64,7 @@ class SpecialToolsAdapter(private val context: Context, private val tools: Array
                 userNameTextView.text = owner.userName
             }
             // Setting:
-            toolImageView.setImageBitmap(tool.decode())
+            toolImageView.load(tool.toolImage) // This will load the image from firebase storage url with coil
             toolDescriptionTextView.text = tool.details
             detailsTextView.text = tool.name
             // Developing::
@@ -77,7 +75,7 @@ class SpecialToolsAdapter(private val context: Context, private val tools: Array
                     // Updating:
                     DatabaseManager.toolsDBReference.child(tool.toolID).child("toolRequestID").setValue(tool.toolRequestID)
                     // Initializing:
-                    tool.toolBasicID=tool.toolID
+                    tool.toolBasicID = tool.toolID
                     tool.toolID = DatabaseManager.ordersDBReference.push().key.toString()
                     tool.toolRequestID = FirebaseAuth.getInstance().currentUser!!.uid
                     // Updating:
@@ -87,9 +85,7 @@ class SpecialToolsAdapter(private val context: Context, private val tools: Array
                     tools[position].toolRequestID = updateRequests
                     // Notifying:
                     notifyDataSetChanged()
-                }
-                else
-                {
+                } else {
                     // Initializing:
                     val builder = MaterialAlertDialogBuilder(context)
                     val name = EditText(context)
@@ -106,13 +102,15 @@ class SpecialToolsAdapter(private val context: Context, private val tools: Array
                         if (messageBody.isEmpty()) Toast.makeText(context, context.getString(R.string.cannot_sent_empty_msg), Toast.LENGTH_SHORT).show()
                         else {
                             // Getting:
-                            DatabaseManager.usersDBReference.child( FirebaseAuth.getInstance().currentUser!!.uid)
+                            DatabaseManager.usersDBReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
                                 .get().addOnSuccessListener {
                                     // Initializing:
                                     val userMe = it.getValue(User::class.java)
                                     val id = FirebaseAuth.getInstance().currentUser!!.uid + " -- " + tool.ownerID
-                                    val messageToSend = Message(id, messageBody, FirebaseAuth.getInstance().currentUser!!.uid,
-                                        tool.ownerID, userMe!!.userName, userNameTextView.text.toString(), "")
+                                    val messageToSend = Message(
+                                        id, messageBody, FirebaseAuth.getInstance().currentUser!!.uid,
+                                        tool.ownerID, userMe!!.userName, userNameTextView.text.toString(), ""
+                                    )
                                     // Setting:
                                     DatabaseManager.messagesDBReference.child(id).setValue(messageToSend)
                                     // Showing:
@@ -124,7 +122,7 @@ class SpecialToolsAdapter(private val context: Context, private val tools: Array
                     builder.show()
                     builder.create()
                 }
-                }
+            }
         }
     }
 

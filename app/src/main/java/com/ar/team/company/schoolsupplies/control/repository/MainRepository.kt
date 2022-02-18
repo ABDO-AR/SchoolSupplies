@@ -1,5 +1,6 @@
 package com.ar.team.company.schoolsupplies.control.repository
 
+import android.util.Base64
 import com.ar.team.company.schoolsupplies.control.interfaces.MainRepo
 import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.model.intentions.AddToolIntentions
@@ -34,8 +35,18 @@ class MainRepository(private val auth: FirebaseAuth, private val manager: Databa
 
     // Method(UploadTool):
     override suspend fun uploadTool(intention: AddToolIntentions.Upload, tool: (success: Boolean) -> Unit) {
-        // Uploading:
-        manager.toolsDBReference.child(intention.tool.toolID).setValue(intention.tool).addOnSuccessListener { tool(true) }
+        // Uploading into storage
+        val path = "https://firebasestorage.googleapis.com/v0/b/schoolsupplies-b9361.appspot.com/o/tools_images%2F${intention.tool.name}_${intention.tool.ownerID}.jpeg?alt=media&token=0ccb5bb6-9fa9-4a7e-9986-afbebac78bf3"
+        val storage = manager.storage.getReference(DatabaseManager.TOOLS_IMAGES_FOLDER_NAME).child("${intention.tool.name}_${intention.tool.ownerID}.jpeg")
+        val bytes = Base64.decode(intention.tool.toolImage, Base64.DEFAULT)!!
+        // Storage:
+        storage.putBytes(bytes).addOnSuccessListener {
+            intention.tool.toolImage = path
+            // Uploading:
+            manager.toolsDBReference.child(intention.tool.toolID).setValue(intention.tool)
+                .addOnSuccessListener { tool(true) }
+                .addOnFailureListener { tool(false) }
+        }.addOnFailureListener { tool(false) }
     }
 
     // Method(GetTools):

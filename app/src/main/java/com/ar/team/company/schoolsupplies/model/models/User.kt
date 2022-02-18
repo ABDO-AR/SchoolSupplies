@@ -24,6 +24,7 @@ data class User(
     }
 
     // Method(Decode):
+    @Deprecated("This making loading images are too slow operation")
     fun decode(): Bitmap {
         // Initializing:
         val bytes: ByteArray = Base64.decode(userImage, Base64.DEFAULT)

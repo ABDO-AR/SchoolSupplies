@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import coil.Coil
+import coil.load
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.control.interfaces.LoadingDialog
 import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
@@ -46,17 +48,15 @@ class GeneralToolsAdapter(private val context: Context, private val tools: Array
             else
                 requestButton.text = context.getString(R.string.request_msg)
 
-            if (tool.toolAcceptedIDs.contains(HomeActivity.userMeID))
-            {
-                stateButton.visibility=View.VISIBLE
-                stateButton.text=context.getString(R.string.request_msg_accept)
+            if (tool.toolAcceptedIDs.contains(HomeActivity.userMeID)) {
+                stateButton.visibility = View.VISIBLE
+                stateButton.text = context.getString(R.string.request_msg_accept)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     stateButton.setBackgroundColor(context.getColor(R.color.green_color))
                 }
 
-            }
-            else if (tool.toolRejectedIDs.contains(HomeActivity.userMeID))
-                stateButton.visibility=View.VISIBLE
+            } else if (tool.toolRejectedIDs.contains(HomeActivity.userMeID))
+                stateButton.visibility = View.VISIBLE
 
             // Checking:
             if (tool.ownerID.trim() != HomeActivity.userMeID) requestButton.visibility = View.VISIBLE
@@ -70,7 +70,7 @@ class GeneralToolsAdapter(private val context: Context, private val tools: Array
                 userNameTextView.text = owner.userName
             }
             // Setting:
-            toolImageView.setImageBitmap(tool.decode())
+            toolImageView.load(tool.toolImage) // This will load the image from firebase storage url with coil
             toolDescriptionTextView.text = tool.details
             detailsTextView.text = tool.name
             // Developing::
@@ -82,7 +82,7 @@ class GeneralToolsAdapter(private val context: Context, private val tools: Array
                     // Updating:
                     DatabaseManager.toolsDBReference.child(tool.toolID).child("toolRequestID").setValue(tool.toolRequestID)
                     // Initializing:
-                    tool.toolBasicID=tool.toolID
+                    tool.toolBasicID = tool.toolID
                     tool.toolID = DatabaseManager.ordersDBReference.push().key.toString()
                     tool.toolRequestID = HomeActivity.userMeID
                     // Updating:
@@ -92,9 +92,7 @@ class GeneralToolsAdapter(private val context: Context, private val tools: Array
                     tools[position].toolRequestID = updateRequests
                     // Notifying:
                     notifyDataSetChanged()
-                }
-                else
-                {
+                } else {
                     // Initializing:
                     val builder = MaterialAlertDialogBuilder(context)
                     val name = EditText(context)
@@ -111,13 +109,15 @@ class GeneralToolsAdapter(private val context: Context, private val tools: Array
                         if (messageBody.isEmpty()) Toast.makeText(context, context.getString(R.string.cannot_sent_empty_msg), Toast.LENGTH_SHORT).show()
                         else {
                             // Getting:
-                            DatabaseManager.usersDBReference.child( HomeActivity.userMeID)
+                            DatabaseManager.usersDBReference.child(HomeActivity.userMeID)
                                 .get().addOnSuccessListener {
                                     // Initializing:
                                     val userMe = it.getValue(User::class.java)
                                     val id = HomeActivity.userMeID + " -- " + tool.ownerID
-                                    val messageToSend = Message(id, messageBody, HomeActivity.userMeID,
-                                        tool.ownerID, userMe!!.userName, userNameTextView.text.toString(), "no_image")
+                                    val messageToSend = Message(
+                                        id, messageBody, HomeActivity.userMeID,
+                                        tool.ownerID, userMe!!.userName, userNameTextView.text.toString(), "no_image"
+                                    )
                                     // Setting:
                                     DatabaseManager.messagesDBReference.child(id).setValue(messageToSend)
                                     // Showing:
