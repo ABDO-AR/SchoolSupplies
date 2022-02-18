@@ -13,8 +13,10 @@ import com.ar.team.company.schoolsupplies.control.adapter.GeneralToolsAdapter
 import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.databinding.FragmentGeneralToolsBinding
 import com.ar.team.company.schoolsupplies.model.intentions.HomeIntentions
+import com.ar.team.company.schoolsupplies.model.models.Tool
 import com.ar.team.company.schoolsupplies.model.states.HomeViewStates
 import com.ar.team.company.schoolsupplies.ui.activities.home.HomeViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -29,7 +31,7 @@ class GeneralToolsFragment : Fragment() {
 
     // ViewModel:
     private val model: HomeViewModel by viewModels()
-
+     private  var tools : ArrayList<Tool> = ArrayList()
     // Adapter:
     private lateinit var adapter: GeneralToolsAdapter
 
@@ -43,6 +45,8 @@ class GeneralToolsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Initializing:
         _binding = FragmentGeneralToolsBinding.inflate(layoutInflater, container, false)
+
+
         // Returning:
         return binding.root
     }
@@ -52,7 +56,8 @@ class GeneralToolsFragment : Fragment() {
         // Super:
         super.onViewCreated(view, savedInstanceState)
         // Initializing:
-        rendering()
+
+       rendering()
         // Developing:
         DatabaseManager.toolsDBReference.addValueEventListener(object : ValueEventListener {
             // Method(OnDataChange):
@@ -61,9 +66,10 @@ class GeneralToolsFragment : Fragment() {
             // Method(OnDataCancelled):
             override fun onCancelled(error: DatabaseError) = rendering()
         })
+
     }
 
-    private fun rendering() {
+   private fun rendering() {
         // Loading:
  //  progressToggle(true)
         // Coroutines:
@@ -103,4 +109,6 @@ class GeneralToolsFragment : Fragment() {
         // Destroying:
         _binding = null
     }
+
+
 }

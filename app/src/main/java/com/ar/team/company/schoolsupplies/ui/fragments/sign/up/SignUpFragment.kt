@@ -3,6 +3,7 @@ package com.ar.team.company.schoolsupplies.ui.fragments.sign.up
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -145,6 +146,7 @@ class SignUpFragment : Fragment() {
                         // Singing:
                         is SignViewStates.Success -> progressToggle(false).also {
 
+
                             homeActivity() }
                         is SignViewStates.Failure -> progressToggle(false).also {
 
@@ -153,8 +155,16 @@ class SignUpFragment : Fragment() {
                                     TAG,
                                     "submit: ${getString(R.string.error_create_user)}"
                                 )
-                                loading.isDismiss()
-                                Snackbar.make(binding.root, getString(R.string.error_create_user), Snackbar.LENGTH_SHORT).show()
+                                val handler = Handler()
+                                handler.postDelayed(object : Runnable {
+                                    override fun run() {
+
+                                        loading.isDismiss()
+
+                                    }
+
+                                }, 2000)
+                            //    Snackbar.make(binding.root, getString(R.string.error_create_user), Snackbar.LENGTH_SHORT).show()
                             }
                         }
                     }

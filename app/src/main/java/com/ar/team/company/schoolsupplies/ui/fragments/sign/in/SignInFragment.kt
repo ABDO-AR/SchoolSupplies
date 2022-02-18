@@ -127,8 +127,17 @@ class SignInFragment : Fragment() {
                                     "submit: ${getString(R.string.error_create_user)}"
 
                                 )
-                                loading.isDismiss()
-                                Snackbar.make(binding.root, getString(R.string.error_create_user), Snackbar.LENGTH_SHORT).show()
+                                val handler = Handler()
+                                handler.postDelayed(object : Runnable {
+                                    override fun run() {
+
+                                        loading.isDismiss()
+
+                                    }
+
+                                }, 2000)
+
+                              //  Snackbar.make(binding.root, getString(R.string.error_create_user), Snackbar.LENGTH_SHORT).show()
                             }
                         }
                     }
