@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.ar.team.company.schoolsupplies.R
 import com.ar.team.company.schoolsupplies.control.managers.DatabaseManager
 import com.ar.team.company.schoolsupplies.databinding.OrderItemViewBinding
@@ -77,7 +78,7 @@ class OrdersAdapter(private val context: Context, private val tools: ArrayList<T
                 }
             }
             // Setting:
-            toolImageView.setImageBitmap(tool.decode())
+            toolImageView.load(tool.toolImage) // This will load the image from firebase storage url with coil
             requestTextView.text = tool.details
             // Developing:
             acceptButton.setOnClickListener {
